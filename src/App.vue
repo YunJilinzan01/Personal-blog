@@ -4,7 +4,7 @@ import LayoutView from './layout/LayoutView.vue';
 </script>
 
 <template>
-  <div class="w-full flex justify-center">
-    <LayoutView class="w-360"></LayoutView>
+  <div class="w-full flex justify-center bg-red-300">
+    <LayoutView></LayoutView>
   </div>
 </template>
