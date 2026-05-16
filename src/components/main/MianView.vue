@@ -19,26 +19,25 @@ import GitHubIcon from '../icons/GitHubIcon.vue';
                     你好！我是一个热爱编程的开发者，喜欢分享我的技术经验和生活点滴。</p>
                 <div class="mt-4 flex  gap-2 text-gray-600">
                     <div
-                        class="size-10 bg-blue-200 rounded-lg hover:bg-blue-300 cursor-pointer flex items-center justify-center">
+                        class="size-10 bg-gray-500 rounded-lg hover:bg-gray-400 cursor-pointer flex items-center justify-center">
                         <GitHubIcon></GitHubIcon>
                     </div>
                     <div
-                        class="size-10 bg-blue-200 rounded-lg hover:bg-blue-300 cursor-pointer flex items-center justify-center">
+                        class="size-10 bg-gray-500 rounded-lg hover:bg-gray-400 cursor-pointer flex items-center justify-center">
                         <VueIcon></VueIcon>
                     </div>
                     <div
-                        class="size-10 bg-blue-200 rounded-lg hover:bg-blue-300 cursor-pointer flex items-center justify-center">
+                        class="size-10 bg-gray-500 rounded-lg hover:bg-gray-400 cursor-pointer flex items-center justify-center">
                         <ViteIcon></ViteIcon>
                     </div>
                     <div
-                        class="size-10 bg-blue-200 rounded-lg hover:bg-blue-300 cursor-pointer flex items-center justify-center">
+                        class="size-10 bg-gray-500 rounded-lg hover:bg-gray-400 cursor-pointer flex items-center justify-center">
                         <JSIcon></JSIcon>
                     </div>
                     <div
-                        class="size-10 bg-blue-200 rounded-lg hover:bg-blue-300 cursor-pointer flex items-center justify-center">
+                        class="size-10 bg-gray-500 rounded-lg hover:bg-gray-400 cursor-pointer flex items-center justify-center">
                         <TWCIcon></TWCIcon>
                     </div>
-
                 </div>
             </div>
 
