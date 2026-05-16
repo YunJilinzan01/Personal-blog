@@ -6,6 +6,7 @@ const searchQuery = ref('');
 const isSearchHover = ref(false);
 const isDark = ref(false);
 const headerRef = ref(null);
+const isHeaderTop = ref(true);
 
 const hideNav = computed(() => isSearchHover.value || searchQuery.value.trim().length > 0);
 const isExpanded = computed(() => isSearchHover.value || searchQuery.value.trim().length > 0);
@@ -14,7 +15,7 @@ const updateHeaderPosition = () => {
     const header = headerRef.value;
     if (!header) return;
 
-    const width = 1440;
+    const width = 1220;
     const left = Math.max((window.innerWidth - width) / 2, 0);
 
     header.style.position = 'fixed';
@@ -30,8 +31,9 @@ const handleScroll = () => {
 
     const scrollY = window.scrollY;
     header.style.top = scrollY > 540 ? '-100px' : '0px';
+    isHeaderTop.value = scrollY < 34;
 
-    const alpha = Math.min((scrollY / 100) * 0.7, 0.7);
+    const alpha = Math.min((scrollY / 100) * 0.5, 0.5);
     header.style.backgroundColor = `rgba(255,255,255,${alpha})`;
     header.style.boxShadow = scrollY === 0 ? 'none' : '0 24px 80px rgba(15, 23, 42, 0.05)';
 };
@@ -56,10 +58,10 @@ const toggleTheme = () => {
 
 <template>
     <header ref="headerRef"
-        class="bg-white/70 backdrop-blur-md h-17 rounded-2xl px-4 flex justify-between items-center transition-all duration-300 w-[1440px]">
+        :class="['bg-white/90 backdrop-blur-md mt-2.5 h-17 rounded-2xl px-4 flex justify-between items-center transition-all duration-300 ', isHeaderTop ? 'text-white' : 'text-gray-800 dark:text-white']">
 
         <div class="shrink-0">
-            <h1 class="text-xl font-bold text-gray-800 dark:text-white cursor-pointer">个人博客</h1>
+            <h1 class="text-xl font-bold cursor-pointer">个人博客</h1>
         </div>
 
         <div class="flex-1 transition-all duration-500 ease-in-out"
@@ -86,7 +88,7 @@ const toggleTheme = () => {
                 <div class="shrink-0 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="text-gray-500">
+                        class="text-current">
                         <circle cx="11" cy="11" r="8"></circle>
                         <path d="m21 21-4.3-4.3"></path>
                     </svg>
@@ -96,7 +98,7 @@ const toggleTheme = () => {
                     :class="[isExpanded ? 'w-full ml-3 opacity-100' : 'w-0 opacity-0']" />
             </div>
 
-            <div class="flex items-center gap-3 ml-2 text-gray-600 dark:text-gray-300">
+            <div class="flex items-center gap-3 ml-2 text-current">
                 <button class="p-2 hover:bg-black/5 rounded-full transition-colors cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
