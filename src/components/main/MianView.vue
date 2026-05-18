@@ -4,20 +4,30 @@ import ViteIcon from '../icons/ViteIcon.vue';
 import JSIcon from '../icons/JSIcon.vue';
 import TWCIcon from '../icons/TWCIcon.vue';
 import GitHubIcon from '../icons/GitHubIcon.vue';
+import Orbit from '../UI/Orbit/Orbit.vue';
+import { Icon } from '@iconify/vue';
+
+const ORBIT_DIRECTION = {
+    Clockwise: "normal",
+    CounterClockwise: "reverse",
+};
+
 </script>
 
 <template>
-    <div class=" flex flex-1 justify-center  gap-5">
+    <div class=" flex flex-1 justify-center gap-5 ">
         <aside>
-            <div class="w-87.5 p-3 bg-white/80 rounded-xl ">
+            <div class="w-87.5 p-3 bg-white/80 rounded-xl py-4">
                 <div class="w-full h-75 bg-blue-400 rounded-xl">
                     <img src="../../assets/images/author.jpg" alt="Author"
                         class="w-full h-full object-cover rounded-xl">
                 </div>
                 <h4 class="text-2xl font-bold my-4 text-center">YunJilinzan</h4>
+                <span class="block text-gray-600 text-center py-1.5">Email: 3231789754@qq.com </span>
                 <p class="text-gray-600 text-center">
-                    你好！我是一个热爱编程的开发者，喜欢分享我的技术经验和生活点滴。</p>
-                <div class="mt-4 flex  gap-2 text-gray-600">
+                    你好！我是一个热爱编程的开发者，喜欢分享我的技术经验和生活点滴。
+                </p>
+                <div class="mt-4 flex justify-center gap-2 text-gray-600">
                     <div
                         class="size-10 bg-gray-500 rounded-lg hover:bg-gray-400 cursor-pointer flex items-center justify-center">
                         <GitHubIcon></GitHubIcon>
@@ -58,6 +68,49 @@ import GitHubIcon from '../icons/GitHubIcon.vue';
                         class="text-white px-3 font-bold py-2 bg-gray-500 rounded-lg text-sm cursor-pointer hover:bg-gray-400">编程</span>
                 </div>
             </div>
+
+            <div class="w-87.5 p-3 bg-white/80 rounded-xl mt-4">
+                <div
+                    class="bg-gray-600 relative flex h-60 w-full flex-col items-center justify-center overflow-hidden rounded-lg border md:shadow-xl">
+                    <Icon icon="vscode-icons:file-type-vscode" width="38" />
+
+                    <Orbit class="size-5 items-center justify-center border-none bg-transparent" :duration="20"
+                        :delay="20" :radius="45" :direction="ORBIT_DIRECTION.CounterClockwise">
+                        <Icon icon="logos:vitejs" width="35" />
+                    </Orbit>
+                    <Orbit class="size-5 items-center justify-center border-none bg-transparent" :duration="20"
+                        :delay="10" :radius="45" path :direction="ORBIT_DIRECTION.CounterClockwise">
+                        <Icon icon="logos:vue" width="35" />
+                    </Orbit>
+
+                    <Orbit class="size-8 items-center justify-center border-none bg-transparent" :radius="75"
+                        :duration="20" :delay="0" path>
+                        <Icon icon="logos:github-icon" width="28" />
+                    </Orbit>
+                    <Orbit class="size-8 items-center justify-center border-none bg-transparent" :radius="75"
+                        :duration="20" :delay="6.6" :direction="ORBIT_DIRECTION.CounterClockwise">
+                        <Icon icon="logos:webstorm" width="28" />
+                    </Orbit>
+                    <Orbit class="size-8 items-center justify-center border-none bg-transparent" :radius="75"
+                        :duration="20" :delay="13.3">
+                        <Icon icon="logos:javascript" width="28" class="pointer-events-none" />
+                    </Orbit>
+
+                    <Orbit class="size-8 items-center justify-center border-none bg-transparent" :radius="105"
+                        :duration="20" path>
+                        <Icon icon="material-icon-theme:html" width="28" />
+                    </Orbit>
+                    <Orbit class="size-8 items-center justify-center border-none bg-transparent" :radius="105"
+                        :duration="20" :delay="200" :direction="ORBIT_DIRECTION.CounterClockwise">
+                        <Icon icon="devicon:css" width="28" />
+                    </Orbit>
+                    <Orbit class="size-8 items-center justify-center border-none bg-transparent" :radius="105"
+                        :duration="20" :delay="200" :direction="ORBIT_DIRECTION.CounterClockwise">
+                        <Icon icon="devicon:tailwindcss" width="28" />
+                    </Orbit>
+                </div>
+            </div>
+
             <div class="w-87.5 p-3 bg-white/80 rounded-xl mt-4">
                 <div class="text-2xl font-bold mb-4">
                     目录
@@ -77,6 +130,7 @@ import GitHubIcon from '../icons/GitHubIcon.vue';
                         class="text-white px-3 font-bold py-2 bg-gray-500 rounded-lg text-sm hover:bg-gray-400">作品展示</a>
                 </div>
             </div>
+
         </aside>
         <main class="flex-1 bg-pink-200 rounded-xl">
             <h1 class="text-4xl font-bold">欢迎来到我的个人博客！</h1>
