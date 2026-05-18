@@ -1,136 +1,17 @@
 <script setup>
-import VueIcon from '../icons/VueIcon.vue';
-import ViteIcon from '../icons/ViteIcon.vue';
-import JSIcon from '../icons/JSIcon.vue';
-import TWCIcon from '../icons/TWCIcon.vue';
-import GitHubIcon from '../icons/GitHubIcon.vue';
-import Orbit from '../UI/Orbit/Orbit.vue';
-import { Icon } from '@iconify/vue';
-
-const ORBIT_DIRECTION = {
-    Clockwise: "normal",
-    CounterClockwise: "reverse",
-};
-
+import AuthorProfile from '../aside/AuthorProfile.vue';
+import TagCloud from '../aside/TagCloud.vue';
+import TechOrbit from '../aside/TechOrbit.vue';
+import Directory from '../aside/Directory.vue';
 </script>
 
 <template>
     <div class=" flex flex-1 justify-center gap-5 ">
         <aside>
-            <div class="w-87.5 p-3 bg-white/80 rounded-xl py-4">
-                <div class="w-full h-75 bg-blue-400 rounded-xl">
-                    <img src="../../assets/images/author.jpg" alt="Author"
-                        class="w-full h-full object-cover rounded-xl">
-                </div>
-                <h4 class="text-2xl font-bold my-4 text-center">YunJilinzan</h4>
-                <span class="block text-gray-600 text-center py-1.5">Email: 3231789754@qq.com </span>
-                <p class="text-gray-600 text-center">
-                    你好！我是一个热爱编程的开发者，喜欢分享我的技术经验和生活点滴。
-                </p>
-                <div class="mt-4 flex justify-center gap-2 text-gray-600">
-                    <div
-                        class="size-10 bg-gray-500 rounded-lg hover:bg-gray-400 cursor-pointer flex items-center justify-center">
-                        <GitHubIcon></GitHubIcon>
-                    </div>
-                    <div
-                        class="size-10 bg-gray-500 rounded-lg hover:bg-gray-400 cursor-pointer flex items-center justify-center">
-                        <VueIcon></VueIcon>
-                    </div>
-                    <div
-                        class="size-10 bg-gray-500 rounded-lg hover:bg-gray-400 cursor-pointer flex items-center justify-center">
-                        <ViteIcon></ViteIcon>
-                    </div>
-                    <div
-                        class="size-10 bg-gray-500 rounded-lg hover:bg-gray-400 cursor-pointer flex items-center justify-center">
-                        <JSIcon></JSIcon>
-                    </div>
-                    <div
-                        class="size-10 bg-gray-500 rounded-lg hover:bg-gray-400 cursor-pointer flex items-center justify-center">
-                        <TWCIcon></TWCIcon>
-                    </div>
-                </div>
-            </div>
-
-            <div class="w-87.5 p-3 bg-white/80 rounded-xl mt-4 ">
-                <div class="text-2xl font-bold mb-4">
-                    标签
-                </div>
-                <div class="flex flex-wrap gap-2">
-                    <span
-                        class="text-white px-3 font-bold py-2 bg-gray-500 rounded-lg text-sm cursor-pointer hover:bg-gray-400">JavaScript</span>
-                    <span
-                        class="text-white px-3 font-bold py-2 bg-gray-500 rounded-lg text-sm cursor-pointer hover:bg-gray-400">Vue.js</span>
-                    <span
-                        class="text-white px-3 font-bold py-2 bg-gray-500 rounded-lg text-sm cursor-pointer hover:bg-gray-400">CSS</span>
-                    <span
-                        class="text-white px-3 font-bold py-2 bg-gray-500 rounded-lg text-sm cursor-pointer hover:bg-gray-400">前端开发</span>
-                    <span
-                        class="text-white px-3 font-bold py-2 bg-gray-500 rounded-lg text-sm cursor-pointer hover:bg-gray-400">编程</span>
-                </div>
-            </div>
-
-            <div class="w-87.5 p-3 bg-white/80 rounded-xl mt-4">
-                <div
-                    class="bg-gray-600 relative flex h-60 w-full flex-col items-center justify-center overflow-hidden rounded-lg border md:shadow-xl">
-                    <Icon icon="vscode-icons:file-type-vscode" width="38" />
-
-                    <Orbit class="size-5 items-center justify-center border-none bg-transparent" :duration="20"
-                        :delay="20" :radius="45" :direction="ORBIT_DIRECTION.CounterClockwise">
-                        <Icon icon="logos:vitejs" width="35" />
-                    </Orbit>
-                    <Orbit class="size-5 items-center justify-center border-none bg-transparent" :duration="20"
-                        :delay="10" :radius="45" path :direction="ORBIT_DIRECTION.CounterClockwise">
-                        <Icon icon="logos:vue" width="35" />
-                    </Orbit>
-
-                    <Orbit class="size-8 items-center justify-center border-none bg-transparent" :radius="75"
-                        :duration="20" :delay="0" path>
-                        <Icon icon="logos:github-icon" width="28" />
-                    </Orbit>
-                    <Orbit class="size-8 items-center justify-center border-none bg-transparent" :radius="75"
-                        :duration="20" :delay="6.6" :direction="ORBIT_DIRECTION.CounterClockwise">
-                        <Icon icon="logos:webstorm" width="28" />
-                    </Orbit>
-                    <Orbit class="size-8 items-center justify-center border-none bg-transparent" :radius="75"
-                        :duration="20" :delay="13.3">
-                        <Icon icon="logos:javascript" width="28" class="pointer-events-none" />
-                    </Orbit>
-
-                    <Orbit class="size-8 items-center justify-center border-none bg-transparent" :radius="105"
-                        :duration="20" path>
-                        <Icon icon="material-icon-theme:html" width="28" />
-                    </Orbit>
-                    <Orbit class="size-8 items-center justify-center border-none bg-transparent" :radius="105"
-                        :duration="20" :delay="200" :direction="ORBIT_DIRECTION.CounterClockwise">
-                        <Icon icon="devicon:css" width="28" />
-                    </Orbit>
-                    <Orbit class="size-8 items-center justify-center border-none bg-transparent" :radius="105"
-                        :duration="20" :delay="200" :direction="ORBIT_DIRECTION.CounterClockwise">
-                        <Icon icon="devicon:tailwindcss" width="28" />
-                    </Orbit>
-                </div>
-            </div>
-
-            <div class="w-87.5 p-3 bg-white/80 rounded-xl mt-4">
-                <div class="text-2xl font-bold mb-4">
-                    目录
-                </div>
-                <div class="flex flex-wrap gap-2">
-                    <a href="#latest-articles"
-                        class="text-white px-3 font-bold py-2 bg-gray-500 rounded-lg text-sm hover:bg-gray-400">最新文章</a>
-                    <a href="#web-development"
-                        class="text-white px-3 font-bold py-2 bg-gray-500 rounded-lg text-sm hover:bg-gray-400">前端开发</a>
-                    <a href="#vue-tips"
-                        class="text-white px-3 font-bold py-2 bg-gray-500 rounded-lg text-sm hover:bg-gray-400">Vue
-                        技巧</a>
-                    <a href="#css-tricks"
-                        class="text-white px-3 font-bold py-2 bg-gray-500 rounded-lg text-sm hover:bg-gray-400">CSS
-                        效果</a>
-                    <a href="#project-showcase"
-                        class="text-white px-3 font-bold py-2 bg-gray-500 rounded-lg text-sm hover:bg-gray-400">作品展示</a>
-                </div>
-            </div>
-
+            <AuthorProfile />
+            <TagCloud />
+            <TechOrbit />
+            <Directory />
         </aside>
         <main class="flex-1 bg-pink-200 rounded-xl">
             <h1 class="text-4xl font-bold">欢迎来到我的个人博客！</h1>
