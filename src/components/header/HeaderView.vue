@@ -1,6 +1,11 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import InteractiveHoverButton from '../UI/InteractiveHoverButton/InteractiveHoverButton.vue'
+import { toggleStore } from '@/stores/toggleStore'
+import { storeToRefs } from 'pinia'
+
+const store = toggleStore()
+const { toggle } = storeToRefs(store)
 
 const searchQuery = ref('')
 const isSearchHover = ref(false)
@@ -21,7 +26,7 @@ const handleScroll = () => {
 
     const alpha = Math.min((scrollY / 100) * 0.5, 0.5)
     headerStyle.value = {
-        top: scrollY > 380 ? '-100px' : '0px',
+        top: scrollY > 420 ? '-100px' : '0px',
         backgroundColor: `rgba(255,255,255,${alpha})`,
         boxShadow: scrollY === 0 ? 'none' : '0 24px 80px rgba(15, 23, 42, 0.05)',
     }
@@ -50,7 +55,7 @@ const toggleTheme = () => {
     <header :class="[
         'fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ease-in-out',
         'w-[calc(100%-2rem)] max-w-342 h-17 mt-2.5 px-4 rounded-2xl flex justify-between items-center',
-        'backdrop-blur-md',
+        'backdrop-blur-md animate-fade-in-down',
         isHeaderTop ? 'text-white' : 'text-gray-800 dark:text-white shadow-xl',
     ]" :style="headerStyle">
         <div class="shrink-0">
@@ -95,7 +100,8 @@ const toggleTheme = () => {
             </div>
 
             <div class="flex items-center gap-3 ml-2 text-current">
-                <button class="p-2 hover:bg-black/5 rounded-full transition-colors cursor-pointer">
+                <button class="p-2 hover:bg-black/5 rounded-full transition-colors cursor-pointer"
+                    @click="toggle = !toggle">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -134,6 +140,22 @@ const toggleTheme = () => {
 </template>
 
 <style scoped>
+.animate-fade-in-down {
+    animation: fade-in-down 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes fade-in-down {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .scale-enter-active,
 .scale-leave-active {
     transition: all 0.2s ease;
