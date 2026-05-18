@@ -30,7 +30,7 @@ const handleScroll = () => {
     if (!header) return;
 
     const scrollY = window.scrollY;
-    header.style.top = scrollY > 540 ? '-100px' : '0px';
+    header.style.top = scrollY > 380 ? '-100px' : '0px';
     isHeaderTop.value = scrollY < 34;
 
     const alpha = Math.min((scrollY / 100) * 0.5, 0.5);
