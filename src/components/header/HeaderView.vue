@@ -5,11 +5,11 @@ import { toggleStore } from '@/stores/toggleStore'
 import { storeToRefs } from 'pinia'
 
 const store = toggleStore()
-const { toggle } = storeToRefs(store)
+const { toggle, isDark } = storeToRefs(store)
+const { toggleTheme: storeToggleTheme } = store
 
 const searchQuery = ref('')
 const isSearchHover = ref(false)
-const isDark = ref(false)
 const isHeaderTop = ref(true)
 const headerStyle = ref({
   top: '0px',
@@ -24,11 +24,19 @@ const handleScroll = () => {
   const scrollY = window.scrollY
   isHeaderTop.value = scrollY < 34
 
-  const alpha = Math.min((scrollY / 100) * 0.5, 0.5)
+  const alpha = Math.min((scrollY / 100) * 0.7, 0.8)
+  const isDarkVal = document.documentElement.classList.contains('dark')
+  const baseColor = isDarkVal ? '24, 24, 27' : '255, 255, 255' // zinc-900 vs white
+
   headerStyle.value = {
     top: scrollY > 420 ? '-100px' : '0px',
-    backgroundColor: `rgba(255,255,255,${alpha})`,
-    boxShadow: scrollY === 0 ? 'none' : '0 24px 80px rgba(15, 23, 42, 0.05)',
+    backgroundColor: `rgba(${baseColor}, ${alpha})`,
+    boxShadow:
+      scrollY === 0
+        ? 'none'
+        : isDarkVal
+          ? '0 24px 80px rgba(0, 0, 0, 0.4)'
+          : '0 24px 80px rgba(15, 23, 42, 0.05)',
   }
 }
 
@@ -42,12 +50,8 @@ onBeforeUnmount(() => {
 })
 
 const toggleTheme = () => {
-  isDark.value = !isDark.value
-  if (isDark.value) {
-    document.documentElement.classList.add('dark')
-  } else {
-    document.documentElement.classList.remove('dark')
-  }
+  storeToggleTheme()
+  handleScroll() // Update header style immediately
 }
 </script>
 

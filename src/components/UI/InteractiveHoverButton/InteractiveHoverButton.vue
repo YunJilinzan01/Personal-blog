@@ -18,12 +18,12 @@ const buttonRef = ref(null);
 
 <template>
     <button ref="buttonRef" :class="cn(
-        'group relative w-auto cursor-pointer overflow-hidden rounded-xl border-none bg-black/3 dark:bg-white/10 p-2 px-4 text-center font-medium text-[14px] text-current transition-all duration-300 hover:bg-black/6',
+        'group relative w-auto cursor-pointer overflow-hidden rounded-xl border-none bg-black/3 dark:bg-white/10 p-2 px-4 text-center font-medium text-[14px] text-current transition-all duration-300 hover:bg-black/6 dark:hover:bg-white/20',
         props.class,
     )">
         <div
             class="flex items-center justify-center gap-2 transition-all duration-300 group-hover:opacity-0 group-hover:-translate-y-2">
-            <div class="bg-gray-400 size-1 rounded-full transition-all duration-300" />
+            <div class="bg-gray-400 dark:bg-zinc-500 size-1 rounded-full transition-all duration-300" />
             <span class="inline-block whitespace-nowrap">
                 {{ text }}
             </span>

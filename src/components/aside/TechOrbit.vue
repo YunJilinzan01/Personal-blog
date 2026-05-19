@@ -9,9 +9,9 @@ const ORBIT_DIRECTION = {
 </script>
 
 <template>
-  <div class="w-87.5 p-3 bg-white/80 rounded-xl mt-4">
+  <div class="w-87.5 p-3 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-xl mt-4 transition-colors duration-300">
     <div
-      class="bg-slate-50 relative flex h-60 w-full flex-col items-center justify-center overflow-hidden rounded-lg border border-gray-100 md:shadow-xl">
+      class="bg-slate-50 dark:bg-zinc-950 relative flex h-60 w-full flex-col items-center justify-center overflow-hidden rounded-lg border border-gray-100 dark:border-zinc-800 md:shadow-xl transition-colors duration-300">
       <Icon icon="vscode-icons:file-type-vscode" width="38" />
 
       <Orbit class="size-5 items-center justify-center border-none bg-transparent" :duration="20" :delay="20"

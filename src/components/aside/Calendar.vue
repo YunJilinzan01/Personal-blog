@@ -126,27 +126,27 @@ const resetToToday = () => {
       <div class="flex flex-col">
         <span
           @click="toggleView('years')"
-          class="text-xs font-medium text-gray-400 uppercase tracking-wider cursor-pointer hover:text-[#37a8ec] transition-colors w-fit"
+          class="text-xs font-medium text-gray-400 dark:text-zinc-500 uppercase tracking-wider cursor-pointer hover:text-[#37a8ec] transition-colors w-fit"
         >
           {{ year }}
         </span>
         <div class="flex items-center gap-2">
           <span
             @click="toggleView('months')"
-            class="text-xl font-bold text-gray-800 cursor-pointer hover:text-[#37a8ec] transition-colors"
+            class="text-xl font-bold text-gray-800 dark:text-zinc-100 cursor-pointer hover:text-[#37a8ec] transition-colors"
           >
             {{ monthName }}
           </span>
           <div class="flex items-center gap-1 ml-2">
             <button
               @click="prev"
-              class="p-1 rounded-lg hover:bg-[#e0f1fe] text-gray-400 hover:text-[#37a8ec] transition-colors duration-200 cursor-pointer"
+              class="p-1 rounded-lg hover:bg-[#e0f1fe] dark:hover:bg-blue-900/30 text-gray-400 dark:text-zinc-500 hover:text-[#37a8ec] transition-colors duration-200 cursor-pointer"
             >
               <ChevronLeft :size="16" />
             </button>
             <button
               @click="next"
-              class="p-1 rounded-lg hover:bg-[#e0f1fe] text-gray-400 hover:text-[#37a8ec] transition-colors duration-200 cursor-pointer"
+              class="p-1 rounded-lg hover:bg-[#e0f1fe] dark:hover:bg-blue-900/30 text-gray-400 dark:text-zinc-500 hover:text-[#37a8ec] transition-colors duration-200 cursor-pointer"
             >
               <ChevronRight :size="16" />
             </button>
@@ -155,7 +155,7 @@ const resetToToday = () => {
       </div>
       <div
         @click="resetToToday"
-        class="w-10 h-10 rounded-xl bg-[#e0f1fe] flex items-center justify-center text-[#37a8ec] font-bold shadow-sm cursor-pointer hover:scale-105 active:scale-95 transition-all"
+        class="w-10 h-10 rounded-xl bg-[#e0f1fe] dark:bg-blue-900/30 flex items-center justify-center text-[#37a8ec] font-bold shadow-sm cursor-pointer hover:scale-105 active:scale-95 transition-all"
       >
         {{ date }}
       </div>
@@ -171,7 +171,7 @@ const resetToToday = () => {
             <div
               v-for="day in daysOfWeek"
               :key="day"
-              class="text-[10px] font-bold text-gray-400 text-center uppercase py-1"
+              class="text-[10px] font-bold text-gray-400 dark:text-zinc-500 text-center uppercase py-1"
             >
               {{ day }}
             </div>
@@ -190,7 +190,7 @@ const resetToToday = () => {
                   ? 'text-white font-bold'
                   : item.isToday
                     ? 'text-[#37a8ec] font-bold'
-                    : 'text-gray-600 hover:bg-gray-50',
+                    : 'text-gray-600 dark:text-zinc-400 hover:bg-gray-50 dark:hover:bg-zinc-800',
               ]"
             >
               <!-- 选中背景 -->
@@ -208,7 +208,7 @@ const resetToToday = () => {
               <!-- 悬浮效果 -->
               <div
                 v-if="item.day && !item.isSelected"
-                class="absolute inset-0 bg-[#e0f1fe] scale-0 group-hover:scale-100 rounded-xl transition-transform duration-200 z-0"
+                class="absolute inset-0 bg-[#e0f1fe] dark:bg-blue-900/30 scale-0 group-hover:scale-100 rounded-xl transition-transform duration-200 z-0"
               ></div>
 
               <span class="relative z-10">{{ item.day }}</span>
@@ -222,8 +222,12 @@ const resetToToday = () => {
             v-for="(m, idx) in monthsList"
             :key="m"
             @click="selectMonth(idx)"
-            class="h-12 flex items-center justify-center rounded-xl text-sm transition-all cursor-pointer hover:bg-[#e0f1fe] hover:text-[#37a8ec]"
-            :class="idx === month ? 'bg-[#e0f1fe] text-[#37a8ec] font-bold' : 'text-gray-600'"
+            class="h-12 flex items-center justify-center rounded-xl text-sm transition-all cursor-pointer hover:bg-[#e0f1fe] dark:hover:bg-blue-900/30 hover:text-[#37a8ec]"
+            :class="
+              idx === month
+                ? 'bg-[#e0f1fe] dark:bg-blue-900/30 text-[#37a8ec] font-bold'
+                : 'text-gray-600 dark:text-zinc-400'
+            "
           >
             {{ m }}
           </div>
@@ -235,8 +239,12 @@ const resetToToday = () => {
             v-for="y in yearsList"
             :key="y"
             @click="selectYear(y)"
-            class="h-12 flex items-center justify-center rounded-xl text-sm transition-all cursor-pointer hover:bg-[#e0f1fe] hover:text-[#37a8ec]"
-            :class="y === year ? 'bg-[#e0f1fe] text-[#37a8ec] font-bold' : 'text-gray-600'"
+            class="h-12 flex items-center justify-center rounded-xl text-sm transition-all cursor-pointer hover:bg-[#e0f1fe] dark:hover:bg-blue-900/30 hover:text-[#37a8ec]"
+            :class="
+              y === year
+                ? 'bg-[#e0f1fe] dark:bg-blue-900/30 text-[#37a8ec] font-bold'
+                : 'text-gray-600 dark:text-zinc-400'
+            "
           >
             {{ y }}
           </div>

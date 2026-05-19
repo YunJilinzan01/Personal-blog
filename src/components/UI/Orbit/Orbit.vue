@@ -35,7 +35,7 @@ const negativeDelay = computed(() => -props.delay);
 
 <template>
     <svg v-if="path" class="pointer-events-none absolute inset-0 size-full">
-        <circle cx="50%" cy="50%" :r="props.radius" fill="none" stroke="rgba(0, 0, 0, 0.1)" stroke-width="1" />
+        <circle cx="50%" cy="50%" :r="props.radius" fill="none" class="stroke-black/10 dark:stroke-white/10" stroke-width="1" />
     </svg>
     <div :class="cn(`animate-orbit absolute flex size-full transform-gpu`, props.class)">
         <slot />

@@ -25,7 +25,7 @@ const { toggle } = storeToRefs(store)
     <Transition name="slide">
       <section
         v-if="toggle"
-        class="w-80 bg-white/80 backdrop-blur-md p-6 rounded-2xl shadow-sm border border-white/20 h-fit sticky top-24"
+        class="w-80 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md p-6 rounded-2xl shadow-sm border border-white/20 dark:border-zinc-800/50 h-fit sticky top-24 transition-colors duration-300"
       >
         <Calendar />
       </section>

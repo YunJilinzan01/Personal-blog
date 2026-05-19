@@ -7,42 +7,42 @@ import GitHubIcon from '@/components/icons/GitHubIcon.vue'
 </script>
 
 <template>
-  <div class="w-87.5 p-3 bg-white/80 rounded-xl py-4">
-    <div class="w-full h-75 bg-blue-400 rounded-xl">
+  <div class="w-87.5 p-3 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-xl py-4 transition-colors duration-300">
+    <div class="w-full h-75 bg-blue-400 rounded-xl overflow-hidden">
       <img
         src="../../assets/images/author.jpg"
         alt="Author"
-        class="w-full h-full object-cover rounded-xl"
+        class="w-full h-full object-cover"
       />
     </div>
-    <h4 class="text-2xl font-bold my-4 text-center">YunJilinzan</h4>
-    <span class="block text-gray-600 text-center py-1.5">Email: 3231789754@qq.com </span>
-    <p class="text-gray-600 text-center">
+    <h4 class="text-2xl font-bold my-4 text-center text-gray-800 dark:text-zinc-100">YunJilinzan</h4>
+    <span class="block text-gray-600 dark:text-zinc-400 text-center py-1.5">Email: 3231789754@qq.com </span>
+    <p class="text-gray-600 dark:text-zinc-400 text-center">
       你好！我是一个热爱编程的开发者，喜欢分享我的技术经验和生活点滴。
     </p>
-    <div class="mt-4 flex justify-center gap-2 text-gray-600">
+    <div class="mt-4 flex justify-center gap-2 text-gray-600 dark:text-zinc-400">
       <div
-        class="size-10 bg-gray-100 rounded-full hover:bg-gray-200 cursor-pointer flex items-center justify-center transition-colors"
+        class="size-10 bg-gray-100 dark:bg-zinc-800 rounded-full hover:bg-gray-200 dark:hover:bg-zinc-700 cursor-pointer flex items-center justify-center transition-colors"
       >
         <GitHubIcon></GitHubIcon>
       </div>
       <div
-        class="size-10 bg-gray-100 rounded-full hover:bg-gray-200 cursor-pointer flex items-center justify-center transition-colors"
+        class="size-10 bg-gray-100 dark:bg-zinc-800 rounded-full hover:bg-gray-200 dark:hover:bg-zinc-700 cursor-pointer flex items-center justify-center transition-colors"
       >
         <VueIcon></VueIcon>
       </div>
       <div
-        class="size-10 bg-gray-100 rounded-full hover:bg-gray-200 cursor-pointer flex items-center justify-center transition-colors"
+        class="size-10 bg-gray-100 dark:bg-zinc-800 rounded-full hover:bg-gray-200 dark:hover:bg-zinc-700 cursor-pointer flex items-center justify-center transition-colors"
       >
         <ViteIcon></ViteIcon>
       </div>
       <div
-        class="size-10 bg-gray-100 rounded-full hover:bg-gray-200 cursor-pointer flex items-center justify-center transition-colors"
+        class="size-10 bg-gray-100 dark:bg-zinc-800 rounded-full hover:bg-gray-200 dark:hover:bg-zinc-700 cursor-pointer flex items-center justify-center transition-colors"
       >
         <JSIcon></JSIcon>
       </div>
       <div
-        class="size-10 bg-gray-100 rounded-full hover:bg-gray-200 cursor-pointer flex items-center justify-center transition-colors"
+        class="size-10 bg-gray-100 dark:bg-zinc-800 rounded-full hover:bg-gray-200 dark:hover:bg-zinc-700 cursor-pointer flex items-center justify-center transition-colors"
       >
         <TWCIcon></TWCIcon>
       </div>
