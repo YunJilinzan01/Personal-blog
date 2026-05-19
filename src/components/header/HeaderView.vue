@@ -1,16 +1,19 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import InteractiveHoverButton from '../UI/InteractiveHoverButton/InteractiveHoverButton.vue'
+import MobileDrawer from './MobileDrawer.vue'
 import { toggleStore } from '@/stores/toggleStore'
 import { storeToRefs } from 'pinia'
 
 const store = toggleStore()
-const { toggle, isDark } = storeToRefs(store)
-const { toggleTheme: storeToggleTheme } = store
+const { toggle, isDark, isMobileMenuOpen } = storeToRefs(store)
+const { toggleTheme: storeToggleTheme, toggleMobileMenu } = store
 
 const searchQuery = ref('')
 const isSearchHover = ref(false)
 const isHeaderTop = ref(true)
+const isDesktop = ref(window.innerWidth >= 1024)
+
 const headerStyle = ref({
   top: '0px',
   backgroundColor: 'rgba(255,255,255,0)',
@@ -19,6 +22,10 @@ const headerStyle = ref({
 
 const hideNav = computed(() => isSearchHover.value || searchQuery.value.trim().length > 0)
 const isExpanded = computed(() => isSearchHover.value || searchQuery.value.trim().length > 0)
+
+const handleResize = () => {
+  isDesktop.value = window.innerWidth >= 1024
+}
 
 const handleScroll = () => {
   const scrollY = window.scrollY
@@ -43,10 +50,12 @@ const handleScroll = () => {
 onMounted(() => {
   handleScroll()
   window.addEventListener('scroll', handleScroll)
+  window.addEventListener('resize', handleResize)
 })
 
 onBeforeUnmount(() => {
   window.removeEventListener('scroll', handleScroll)
+  window.removeEventListener('resize', handleResize)
 })
 
 const toggleTheme = () => {
@@ -66,11 +75,11 @@ const toggleTheme = () => {
     :style="headerStyle"
   >
     <div class="shrink-0">
-      <h1 class="text-xl font-bold cursor-pointer">个人博客</h1>
+      <h1 class="text-lg md:text-xl font-bold cursor-pointer whitespace-nowrap">个人博客</h1>
     </div>
 
     <div
-      class="flex-1 transition-all duration-500 ease-in-out"
+      class="flex-1 transition-all duration-500 ease-in-out hidden lg:block"
       :class="[
         hideNav
           ? 'opacity-0 invisible pointer-events-none translate-y-2'
@@ -92,10 +101,11 @@ const toggleTheme = () => {
       </nav>
     </div>
 
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-2 md:gap-3">
+      <!-- 搜索栏 -->
       <div
         class="flex items-center cursor-pointer bg-black/5 dark:bg-white/10 rounded-xl px-3 py-1.5 transition-all duration-500 ease-in-out"
-        :class="[isExpanded ? 'w-64' : 'w-10']"
+        :class="[isExpanded ? 'w-40 sm:w-64' : 'w-10']"
         @mouseenter="isSearchHover = true"
         @mouseleave="isSearchHover = false"
       >
@@ -121,13 +131,15 @@ const toggleTheme = () => {
           placeholder="Search"
           v-model="searchQuery"
           class="bg-transparent text-sm outline-none transition-all duration-500 ease-in-out placeholder:text-gray-400"
-          :class="[isExpanded ? 'w-full ml-3 opacity-100' : 'w-0 opacity-0']"
+          :class="[isExpanded ? 'w-full ml-2 md:ml-3 opacity-100' : 'w-0 opacity-0']"
         />
       </div>
 
-      <div class="flex items-center gap-3 ml-2 text-current">
+      <div class="flex items-center gap-1 md:gap-3 text-current">
+        <!-- 侧边栏切换按钮 - 仅桌面端 -->
         <button
-          class="p-2 hover:bg-black/5 rounded-full transition-all duration-300 active:scale-90 cursor-pointer"
+          v-if="isDesktop"
+          class="p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-all duration-300 active:scale-90 cursor-pointer"
           @click="toggle = !toggle"
         >
           <transition name="scale" mode="out-in">
@@ -170,9 +182,31 @@ const toggleTheme = () => {
           </transition>
         </button>
 
+        <!-- 移动端菜单按钮 -->
+        <button
+          class="lg:hidden p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-all duration-300 active:scale-90 cursor-pointer"
+          @click="toggleMobileMenu"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="1"></circle>
+            <circle cx="19" cy="12" r="1"></circle>
+            <circle cx="5" cy="12" r="1"></circle>
+          </svg>
+        </button>
+
         <button
           @click="toggleTheme"
-          class="p-2 hover:bg-black/5 rounded-full transition-all duration-300 active:scale-90 cursor-pointer"
+          class="p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-all duration-300 active:scale-90 cursor-pointer"
         >
           <transition name="scale" mode="out-in">
             <svg
@@ -219,6 +253,8 @@ const toggleTheme = () => {
       </div>
     </div>
   </header>
+
+  <MobileDrawer />
 </template>
 
 <style scoped>

@@ -13,30 +13,49 @@ const store = toggleStore()
 const { toggle } = storeToRefs(store)
 </script>
 <template>
-  <div class="flex flex-1 justify-center gap-5">
-    <aside class="animate-fade-in-left">
+  <div class="flex flex-col lg:flex-row flex-1 justify-center gap-5 w-full">
+    <!-- 左侧栏 - 桌面端侧边显示，移动端顶部堆叠显示 -->
+    <aside class="flex flex-col gap-5 lg:block animate-fade-in-left">
       <AuthorProfile />
       <TagCloud />
       <TechOrbit />
       <Directory />
     </aside>
-    <main class="flex-1 animate-fade-in-up">
+
+    <!-- 主内容区 -->
+    <main class="flex-1 w-full animate-fade-in-up">
       <PostList />
     </main>
+
+    <!-- 右侧栏 - 桌面端根据 toggle 显示，移动端始终显示并堆叠在下方 -->
     <Transition name="slide">
-      <div v-if="toggle" class="flex flex-col gap-5 sticky top-24 h-fit">
+      <div v-if="toggle" class="hidden lg:flex flex-col gap-5 lg:sticky lg:top-24 h-fit">
         <section
-          class="w-80 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md p-6 rounded-2xl shadow-sm border border-white/20 dark:border-zinc-800/50 transition-colors duration-300"
+          class="w-full lg:w-80 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md p-6 rounded-2xl shadow-sm border border-white/20 dark:border-zinc-800/50 transition-colors duration-300"
         >
           <Calendar />
         </section>
         <section
-          class="w-80 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md p-6 rounded-2xl shadow-sm border border-white/20 dark:border-zinc-800/50 transition-colors duration-300"
+          class="w-full lg:w-80 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md p-6 rounded-2xl shadow-sm border border-white/20 dark:border-zinc-800/50 transition-colors duration-300"
         >
           <GoalList />
         </section>
       </div>
     </Transition>
+
+    <!-- 移动端专用的右侧功能显示（不依赖 toggle 状态） -->
+    <div class="flex lg:hidden flex-col gap-5">
+      <section
+        class="w-full bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md p-6 rounded-2xl shadow-sm border border-white/20 dark:border-zinc-800/50 transition-colors duration-300"
+      >
+        <Calendar />
+      </section>
+      <section
+        class="w-full bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md p-6 rounded-2xl shadow-sm border border-white/20 dark:border-zinc-800/50 transition-colors duration-300"
+      >
+        <GoalList />
+      </section>
+    </div>
   </div>
 </template>
 

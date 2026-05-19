@@ -19,7 +19,7 @@ const { isDark } = storeToRefs(store)
           <div class="header flex justify-center">
             <HeaderView class="shadow-xl"></HeaderView>
           </div>
-          <div class="main pt-87.5">
+          <div class="main pt-24 md:pt-87.5">
             <MianView> </MianView>
           </div>
         </div>

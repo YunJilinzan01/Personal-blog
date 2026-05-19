@@ -7,7 +7,7 @@ import GitHubIcon from '@/components/icons/GitHubIcon.vue'
 </script>
 
 <template>
-  <div class="w-87.5 p-3 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-xl py-4 transition-colors duration-300">
+  <div class="w-full lg:w-87.5 p-3 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-xl py-4 transition-colors duration-300">
     <div class="w-full h-75 bg-blue-400 rounded-xl overflow-hidden">
       <img
         src="../../assets/images/author.jpg"

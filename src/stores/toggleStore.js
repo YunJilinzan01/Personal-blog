@@ -8,7 +8,10 @@ export const toggleStore = defineStore('toggle', () => {
 
   // 布局状态 (true 为展开/默认，false 为收起)
   const toggle = ref(savedLayout !== null ? JSON.parse(savedLayout) : true)
-  
+
+  // 移动端菜单状态
+  const isMobileMenuOpen = ref(false)
+
   // 主题状态
   const isDark = ref(savedTheme !== null ? JSON.parse(savedTheme) : false)
 
@@ -31,6 +34,10 @@ export const toggleStore = defineStore('toggle', () => {
     applyTheme(isDark.value)
   }
 
+  const toggleMobileMenu = () => {
+    isMobileMenuOpen.value = !isMobileMenuOpen.value
+  }
+
   // 监听并持久化布局状态
   watch(toggle, (newVal) => {
     localStorage.setItem('blog-layout-toggle', JSON.stringify(newVal))
@@ -43,7 +50,9 @@ export const toggleStore = defineStore('toggle', () => {
 
   return {
     toggle,
+    isMobileMenuOpen,
     isDark,
     toggleTheme,
+    toggleMobileMenu,
   }
 })
