@@ -11,10 +11,7 @@ const { isDark } = storeToRefs(store)
 
 <template>
   <div
-    :class="[
-      'relative flex w-full flex-col items-center justify-center gap-4 overflow-clip border transition-all duration-300',
-      isDark ? 'border-zinc-800' : 'border-zinc-200',
-    ]"
+    class="relative flex w-full min-h-screen flex-col items-center justify-center overflow-clip transition-all duration-300"
   >
     <StarsBackground :factor="0.05" :speed="50" star-color="#fff" class="flex justify-center">
       <div class="w-full max-w-350 px-4">
