@@ -18,7 +18,7 @@ const buttonRef = ref(null);
 
 <template>
     <button ref="buttonRef" :class="cn(
-        'group relative w-auto cursor-pointer overflow-hidden rounded-xl border-none bg-black/[0.03] dark:bg-white/10 p-2 px-4 text-center font-medium text-[14px] text-current transition-all duration-300 hover:bg-black/[0.06]',
+        'group relative w-auto cursor-pointer overflow-hidden rounded-xl border-none bg-black/3 dark:bg-white/10 p-2 px-4 text-center font-medium text-[14px] text-current transition-all duration-300 hover:bg-black/6',
         props.class,
     )">
         <div

@@ -10,19 +10,17 @@ import StarsBackground from '@/components/UI/StarsBackground/StarsBackground.vue
     <div
         class="relative flex  w-full flex-col items-center justify-center gap-4 overflow-clip border transition-all duration-150  border-zinc-800">
         <StarsBackground :factor="0.05" :speed="50" star-color="#fff" class="flex justify-center ">
-            <div class="w-full max-w-[1400px] px-4">
+            <div class="w-full max-w-350 px-4">
                 <div>
                     <div class="header flex justify-center  ">
                         <HeaderView class="shadow-xl"></HeaderView>
                     </div>
-                    <div class="main pt-[350px]">
+                    <div class="main pt-87.5">
                         <MianView>
                         </MianView>
                     </div>
                 </div>
             </div>
-
-
         </StarsBackground>
     </div>
 
