@@ -5,6 +5,7 @@ import TagCloud from '../aside/TagCloud.vue'
 import TechOrbit from '../aside/TechOrbit.vue'
 import Directory from '../aside/Directory.vue'
 import Calendar from '../aside/Calendar.vue'
+import GoalList from '../aside/GoalList.vue'
 import { toggleStore } from '@/stores/toggleStore'
 import { storeToRefs } from 'pinia'
 
@@ -23,12 +24,18 @@ const { toggle } = storeToRefs(store)
       <PostList />
     </main>
     <Transition name="slide">
-      <section
-        v-if="toggle"
-        class="w-80 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md p-6 rounded-2xl shadow-sm border border-white/20 dark:border-zinc-800/50 h-fit sticky top-24 transition-colors duration-300"
-      >
-        <Calendar />
-      </section>
+      <div v-if="toggle" class="flex flex-col gap-5 sticky top-24 h-fit">
+        <section
+          class="w-80 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md p-6 rounded-2xl shadow-sm border border-white/20 dark:border-zinc-800/50 transition-colors duration-300"
+        >
+          <Calendar />
+        </section>
+        <section
+          class="w-80 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md p-6 rounded-2xl shadow-sm border border-white/20 dark:border-zinc-800/50 transition-colors duration-300"
+        >
+          <GoalList />
+        </section>
+      </div>
     </Transition>
   </div>
 </template>
