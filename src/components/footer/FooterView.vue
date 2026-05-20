@@ -20,6 +20,9 @@ const currentYear = new Date().getFullYear()
           <p class="text-sm text-gray-600 dark:text-zinc-400 leading-relaxed">
             记录生活、分享技术、共同成长。这是一个基于 Vue 3 和 Tailwind CSS 构建的个人博客空间。
           </p>
+          <div class="flex items-center gap-4">
+            <GitHubIcon href="https://github.com/yourusername"></GitHubIcon>
+          </div>
         </div>
 
         <!-- Quick Links -->
@@ -98,7 +101,7 @@ const currentYear = new Date().getFullYear()
             target="_blank"
             class="hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
           >
-            浙ICP备XXXXXXXX号-1
+            粤ICP备2025434826号
           </a>
         </div>
         <div class="flex gap-6">

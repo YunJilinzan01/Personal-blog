@@ -26,27 +26,27 @@ import GitHubIcon from '@/components/icons/GitHubIcon.vue'
       <div
         class="size-10 bg-gray-100 dark:bg-zinc-800 rounded-full hover:bg-gray-200 dark:hover:bg-zinc-700 cursor-pointer flex items-center justify-center transition-colors"
       >
-        <GitHubIcon></GitHubIcon>
+        <GitHubIcon href="https://github.com/YunJiLinZan01"></GitHubIcon>
       </div>
       <div
         class="size-10 bg-gray-100 dark:bg-zinc-800 rounded-full hover:bg-gray-200 dark:hover:bg-zinc-700 cursor-pointer flex items-center justify-center transition-colors"
       >
-        <VueIcon></VueIcon>
+        <VueIcon href="https://cn.vuejs.org/"></VueIcon>
       </div>
       <div
         class="size-10 bg-gray-100 dark:bg-zinc-800 rounded-full hover:bg-gray-200 dark:hover:bg-zinc-700 cursor-pointer flex items-center justify-center transition-colors"
       >
-        <ViteIcon></ViteIcon>
+        <ViteIcon href="https://vitejs.dev/"></ViteIcon>
       </div>
       <div
         class="size-10 bg-gray-100 dark:bg-zinc-800 rounded-full hover:bg-gray-200 dark:hover:bg-zinc-700 cursor-pointer flex items-center justify-center transition-colors"
       >
-        <JSIcon></JSIcon>
+        <JSIcon href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript"></JSIcon>
       </div>
       <div
         class="size-10 bg-gray-100 dark:bg-zinc-800 rounded-full hover:bg-gray-200 dark:hover:bg-zinc-700 cursor-pointer flex items-center justify-center transition-colors"
       >
-        <TWCIcon></TWCIcon>
+        <TWCIcon href="https://tailwindcss.com/"></TWCIcon>
       </div>
     </div>
   </div>

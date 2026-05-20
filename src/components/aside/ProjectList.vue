@@ -5,19 +5,20 @@ import { Plus, Trash2, FolderOpen } from 'lucide-vue-next'
 const projects = ref([
   {
     id: 1,
-    title: '个人博客系统',
-    description: '基于 Vue 3 + Tailwind CSS 开发的个人极简风格博客，支持暗黑模式和玻璃拟态设计。',
-    link: 'https://github.com/your2317',
-    tags: ['Vue 3', 'Tailwind'],
-    tagColors: 'bg-blue-100/50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400',
-  },
-  {
-    id: 2,
-    title: '任务管理助手',
-    description: '高效的待办事项管理工具，支持本地持久化存储和多种任务视图切换。',
+    title: '电商后台管理系统',
+    description:
+      '基于 Vue 3 + Element Plus 开发的电商后台管理系统，支持商品管理、订单管理、用户管理等功能。',
     link: '#',
     tags: ['Pinia', 'LocalStorage'],
     tagColors: 'bg-orange-100/50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400',
+  },
+  {
+    id: 2,
+    title: '个人博客系统',
+    description: '基于 Vue 3 + Tailwind CSS 开发的个人极简风格博客，支持暗黑模式和玻璃拟态设计。',
+    link: 'https://github.com/YunJiLinZan01',
+    tags: ['Vue 3', 'Tailwind'],
+    tagColors: 'bg-blue-100/50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400',
   },
 ])
 

@@ -2,6 +2,7 @@
 import HeaderView from '@/components/header/HeaderView.vue'
 import FooterView from '@/components/footer/FooterView.vue'
 import StarsBackground from '@/components/UI/StarsBackground/StarsBackground.vue'
+import BackToTop from '@/components/UI/BackToTop/BackToTop.vue'
 import { toggleStore } from '@/stores/toggleStore'
 import { storeToRefs } from 'pinia'
 
@@ -27,6 +28,7 @@ const { isDark } = storeToRefs(store)
           </div>
         </div>
       </div>
+      <BackToTop />
     </StarsBackground>
   </div>
 </template>

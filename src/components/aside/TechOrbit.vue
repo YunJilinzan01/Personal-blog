@@ -12,6 +12,10 @@ const ORBIT_DIRECTION = {
   <div
     class="w-full lg:w-87.5 p-3 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-2xl transition-colors duration-300 border border-white/20 dark:border-zinc-800/50 shadow-sm"
   >
+    <div class="flex items-center gap-2 mb-3 px-1">
+      <span class="w-1.5 h-6 bg-[#37a8ec] rounded-full"></span>
+      <h3 class="text-xl font-bold text-gray-800 dark:text-zinc-100">技术栈</h3>
+    </div>
     <div
       class="bg-slate-50 dark:bg-zinc-950 relative flex h-60 w-full flex-col items-center justify-center overflow-hidden rounded-lg border border-gray-100 dark:border-zinc-800 md:shadow-xl transition-colors duration-300"
     >
@@ -44,7 +48,7 @@ const ORBIT_DIRECTION = {
         :delay="0"
         path
       >
-        <Icon icon="logos:github-icon" width="28" />
+        <Icon icon="logos:github-icon" width="28" class="dark:invert dark:brightness-200" />
       </Orbit>
       <Orbit
         class="size-8 items-center justify-center border-none bg-transparent"
