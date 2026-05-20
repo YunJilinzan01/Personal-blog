@@ -66,6 +66,7 @@ const toggleTheme = () => {
 
 <template>
   <header
+    v-bind="$attrs"
     :class="[
       'fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ease-in-out',
       'w-[calc(100%-2rem)] max-w-342 h-17 mt-2.5 px-4 rounded-2xl flex justify-between items-center',

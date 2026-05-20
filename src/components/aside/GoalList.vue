@@ -11,9 +11,14 @@ const newGoalTitle = ref('')
 
 // 从本地存储加载数据
 onMounted(() => {
-  const savedGoals = localStorage.getItem('blog-goals')
-  if (savedGoals) {
-    goals.value = JSON.parse(savedGoals)
+  try {
+    const savedGoals = localStorage.getItem('blog-goals')
+    if (savedGoals) {
+      goals.value = JSON.parse(savedGoals)
+    }
+  } catch (e) {
+    console.error('解析本地目标数据失败，已重置:', e)
+    localStorage.removeItem('blog-goals')
   }
 })
 

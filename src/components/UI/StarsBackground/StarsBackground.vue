@@ -20,10 +20,6 @@ const props = defineProps({
     type: String,
     default: '#fff',
   },
-  class: {
-    type: String,
-    default: '',
-  },
 })
 
 // For slot content
@@ -97,12 +93,7 @@ const starLayer3Transition = computed(() => ({
 
 <template>
   <div
-    :class="
-      cn(
-        'relative size-full overflow-hidden bg-[radial-gradient(ellipse_at_bottom,#262626_0%,#000_100%)]',
-        props.class,
-      )
-    "
+    class="relative size-full overflow-hidden bg-[radial-gradient(ellipse_at_bottom,#262626_0%,#000_100%)]"
     @mousemove="handleMouseMove"
   >
     <motion.div :style="{ x: springX, y: springY }">

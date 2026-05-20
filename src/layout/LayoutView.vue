@@ -1,6 +1,5 @@
 <script setup>
 import HeaderView from '@/components/header/HeaderView.vue'
-import MianView from '@/components/main/MianView.vue'
 import StarsBackground from '@/components/UI/StarsBackground/StarsBackground.vue'
 import { toggleStore } from '@/stores/toggleStore'
 import { storeToRefs } from 'pinia'
@@ -17,10 +16,10 @@ const { isDark } = storeToRefs(store)
       <div class="w-full max-w-350 px-4">
         <div>
           <div class="header flex justify-center">
-            <HeaderView class="shadow-xl"></HeaderView>
+            <HeaderView></HeaderView>
           </div>
           <div class="main pt-24 md:pt-87.5">
-            <MianView> </MianView>
+            <router-view></router-view>
           </div>
         </div>
       </div>
