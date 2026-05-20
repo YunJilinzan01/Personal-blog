@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { ChevronUp } from 'lucide-vue-next'
 import { useWindowScroll } from '@vueuse/core'
 

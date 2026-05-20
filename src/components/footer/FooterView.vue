@@ -22,6 +22,7 @@ const currentYear = new Date().getFullYear()
           </p>
           <div class="flex items-center gap-4">
             <GitHubIcon href="https://github.com/yourusername"></GitHubIcon>
+            <TWCIcon href="https://www.toutiao.com/user/yourusername/"></TWCIcon>
           </div>
         </div>
 
