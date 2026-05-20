@@ -1,5 +1,6 @@
 <script setup>
 import HeaderView from '@/components/header/HeaderView.vue'
+import FooterView from '@/components/footer/FooterView.vue'
 import StarsBackground from '@/components/UI/StarsBackground/StarsBackground.vue'
 import { toggleStore } from '@/stores/toggleStore'
 import { storeToRefs } from 'pinia'
@@ -20,6 +21,9 @@ const { isDark } = storeToRefs(store)
           </div>
           <div class="main pt-24 md:pt-87.5">
             <router-view></router-view>
+          </div>
+          <div class="footer flex justify-center">
+            <FooterView></FooterView>
           </div>
         </div>
       </div>

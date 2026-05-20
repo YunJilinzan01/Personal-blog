@@ -2,7 +2,7 @@
 
 <template>
   <div
-    class="w-full lg:w-87.5 p-3 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-xl mt-4 transition-colors duration-300"
+    class="w-full lg:w-87.5 p-3 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-2xl transition-colors duration-300 border border-white/20 dark:border-zinc-800/50 shadow-sm"
   >
     <div class="text-2xl font-bold mb-4 text-gray-800 dark:text-zinc-100">标签</div>
     <div class="flex flex-wrap gap-2">

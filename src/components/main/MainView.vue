@@ -16,7 +16,7 @@ const { toggle } = storeToRefs(store)
 <template>
   <div class="flex flex-col lg:flex-row flex-1 justify-center gap-5 w-full">
     <!-- 左侧栏 - 桌面端侧边显示，移动端顶部堆叠显示 -->
-    <aside class="flex flex-col gap-5 lg:block animate-fade-in-left">
+    <aside class="flex flex-col gap-5 lg:flex lg:flex-col lg:gap-5 animate-fade-in-left">
       <AuthorProfile />
       <TagCloud />
       <ProjectList />
@@ -36,9 +36,7 @@ const { toggle } = storeToRefs(store)
         >
           <Calendar />
         </section>
-        <section
-          class="w-full lg:w-80 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md p-6 rounded-2xl shadow-sm border border-white/20 dark:border-zinc-800/50 transition-colors duration-300"
-        >
+        <section>
           <Directory />
         </section>
         <section

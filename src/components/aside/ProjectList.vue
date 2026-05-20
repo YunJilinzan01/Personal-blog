@@ -96,7 +96,7 @@ const removeProject = (id) => {
 
 <template>
   <div
-    class="w-full lg:w-87.5 p-5 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-xl mt-4 transition-colors duration-300 border border-white/20 dark:border-zinc-800/50 shadow-sm"
+    class="w-full lg:w-87.5 p-5 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-2xl transition-colors duration-300 border border-white/20 dark:border-zinc-800/50 shadow-sm"
   >
     <div class="flex items-center justify-between mb-4">
       <h3 class="text-xl font-bold text-gray-800 dark:text-zinc-100 flex items-center gap-2">

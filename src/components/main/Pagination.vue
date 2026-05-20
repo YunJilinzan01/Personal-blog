@@ -14,7 +14,7 @@ defineEmits(['update:currentPage'])
 </script>
 
 <template>
-  <div class="flex items-center justify-center gap-4 mt-50 mb-10">
+  <div class="flex items-center justify-center gap-4 mt-20 mb-10">
     <!-- 上一页 -->
     <button
       :disabled="currentPage === 1"
