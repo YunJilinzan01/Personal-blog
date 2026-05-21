@@ -22,7 +22,6 @@ const projects = ref([
   },
 ])
 
-// 可选的标签颜色池
 const colorPool = [
   'bg-blue-100/50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400',
   'bg-emerald-100/50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400',
