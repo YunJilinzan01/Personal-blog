@@ -16,7 +16,7 @@ const { profile } = storeToRefs(userStore)
     class="w-full lg:w-87.5 p-3 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-2xl py-4 transition-colors duration-300 border border-white/20 dark:border-zinc-800/50 shadow-sm"
   >
     <div class="w-full h-75 bg-blue-400 rounded-xl overflow-hidden">
-      <img src="../../assets/images/author.jpg" alt="Author" class="w-full h-full object-cover" />
+      <img :src="userStore.getAvatar()" alt="Author" class="w-full h-full object-cover" />
     </div>
     <h4 class="text-2xl font-bold my-4 text-center text-gray-800 dark:text-zinc-100">
       {{ profile.name }}
@@ -31,7 +31,7 @@ const { profile } = storeToRefs(userStore)
       <div
         class="size-10 bg-gray-100 dark:bg-zinc-800 rounded-full hover:bg-gray-200 dark:hover:bg-zinc-700 cursor-pointer flex items-center justify-center transition-colors"
       >
-        <GitHubIcon href="https://github.com/YunJiLinZan01"></GitHubIcon>
+        <GitHubIcon href="https://github.com/yourusername"></GitHubIcon>
       </div>
       <div
         class="size-10 bg-gray-100 dark:bg-zinc-800 rounded-full hover:bg-gray-200 dark:hover:bg-zinc-700 cursor-pointer flex items-center justify-center transition-colors"

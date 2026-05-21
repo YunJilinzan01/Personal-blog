@@ -16,6 +16,7 @@ import {
   Linkedin,
   Plus,
   Trash2,
+  Camera,
 } from 'lucide-vue-next'
 import { useUserStore } from '@/stores/userStore'
 import { storeToRefs } from 'pinia'
@@ -30,8 +31,10 @@ const editExperiences = ref([...experiences.value])
 const editEducation = ref([...education.value])
 const editSocialLinks = ref([...socialLinks.value])
 
+const fileInput = ref(null)
+
 const startEdit = () => {
-  editForm.value = { ...profile.value }
+  editForm.value = JSON.parse(JSON.stringify(profile.value))
   editSkills.value = JSON.parse(JSON.stringify(skills.value))
   editExperiences.value = JSON.parse(JSON.stringify(experiences.value))
   editEducation.value = JSON.parse(JSON.stringify(education.value))
@@ -50,6 +53,25 @@ const saveEdit = () => {
   userStore.updateEducation(editEducation.value)
   userStore.updateSocialLinks(editSocialLinks.value)
   isEditing.value = false
+}
+
+const triggerFileUpload = () => {
+  fileInput.value.click()
+}
+
+const handleAvatarUpload = (event) => {
+  const file = event.target.files[0]
+  if (file) {
+    if (file.size > 2 * 1024 * 1024) {
+      alert('图片大小不能超过 2MB')
+      return
+    }
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      editForm.value.avatar = e.target.result
+    }
+    reader.readAsDataURL(file)
+  }
 }
 
 // 辅助方法：增删项目
@@ -128,11 +150,7 @@ const iconMap = {
           <div
             class="w-32 h-32 rounded-2xl overflow-hidden border-4 border-white/50 dark:border-zinc-800/50 shadow-xl transition-transform duration-500 group-hover/avatar:scale-105"
           >
-            <img
-              src="../../assets/images/author.jpg"
-              alt="Avatar"
-              class="w-full h-full object-cover"
-            />
+            <img :src="userStore.getAvatar()" alt="Avatar" class="w-full h-full object-cover" />
           </div>
           <div class="absolute -bottom-2 -right-2 bg-blue-500 text-white p-2 rounded-xl shadow-lg">
             <User :size="16" />
@@ -192,48 +210,79 @@ const iconMap = {
           </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="space-y-2">
-            <label class="text-sm font-medium text-gray-500 dark:text-zinc-400">昵称</label>
-            <input
-              v-model="editForm.name"
-              type="text"
-              class="w-full px-4 py-2.5 rounded-xl bg-gray-50 dark:bg-zinc-800/50 border border-gray-100 dark:border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-zinc-100 transition-all"
-            />
-          </div>
-          <div class="space-y-2">
-            <label class="text-sm font-medium text-gray-500 dark:text-zinc-400">所在地</label>
-            <input
-              v-model="editForm.location"
-              type="text"
-              class="w-full px-4 py-2.5 rounded-xl bg-gray-50 dark:bg-zinc-800/50 border border-gray-100 dark:border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-zinc-100 transition-all"
-            />
-          </div>
-          <div class="space-y-2">
-            <label class="text-sm font-medium text-gray-500 dark:text-zinc-400">电子邮箱</label>
-            <input
-              v-model="editForm.email"
-              type="email"
-              class="w-full px-4 py-2.5 rounded-xl bg-gray-50 dark:bg-zinc-800/50 border border-gray-100 dark:border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-zinc-100 transition-all"
-            />
-          </div>
-
-          <div class="space-y-2">
-            <label class="text-sm font-medium text-gray-500 dark:text-zinc-400">个人主页</label>
-            <input
-              v-model="editForm.website"
-              type="text"
-              class="w-full px-4 py-2.5 rounded-xl bg-gray-50 dark:bg-zinc-800/50 border border-gray-100 dark:border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-zinc-100 transition-all"
-            />
+        <div class="flex flex-col md:flex-row gap-8">
+          <!-- 编辑头像 -->
+          <div class="flex flex-col items-center gap-4">
+            <div
+              @click="triggerFileUpload"
+              class="relative w-32 h-32 rounded-2xl overflow-hidden border-4 border-dashed border-blue-500/50 hover:border-blue-500 transition-all cursor-pointer group/upload"
+            >
+              <img
+                :src="editForm.avatar || userStore.getAvatar()"
+                alt="Preview"
+                class="w-full h-full object-cover transition-opacity group-hover/upload:opacity-50"
+              />
+              <div
+                class="absolute inset-0 flex flex-col items-center justify-center text-blue-500 opacity-0 group-hover/upload:opacity-100 transition-opacity"
+              >
+                <Camera :size="24" />
+                <span class="text-xs font-bold mt-1">更换头像</span>
+              </div>
+              <input
+                ref="fileInput"
+                type="file"
+                class="hidden"
+                accept="image/*"
+                @change="handleAvatarUpload"
+              />
+            </div>
+            <p class="text-[10px] text-gray-400">支持 JPG/PNG，小于 2MB</p>
           </div>
 
-          <div class="md:col-span-2 space-y-2">
-            <label class="text-sm font-medium text-gray-500 dark:text-zinc-400">个人简介</label>
-            <textarea
-              v-model="editForm.bio"
-              rows="3"
-              class="w-full px-4 py-2.5 rounded-xl bg-gray-50 dark:bg-zinc-800/50 border border-gray-100 dark:border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-zinc-100 transition-all resize-none"
-            ></textarea>
+          <!-- 表单字段 -->
+          <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-gray-500 dark:text-zinc-400">昵称</label>
+              <input
+                v-model="editForm.name"
+                type="text"
+                class="w-full px-4 py-2.5 rounded-xl bg-gray-50 dark:bg-zinc-800/50 border border-gray-100 dark:border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-zinc-100 transition-all"
+              />
+            </div>
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-gray-500 dark:text-zinc-400">所在地</label>
+              <input
+                v-model="editForm.location"
+                type="text"
+                class="w-full px-4 py-2.5 rounded-xl bg-gray-50 dark:bg-zinc-800/50 border border-gray-100 dark:border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-zinc-100 transition-all"
+              />
+            </div>
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-gray-500 dark:text-zinc-400">电子邮箱</label>
+              <input
+                v-model="editForm.email"
+                type="email"
+                class="w-full px-4 py-2.5 rounded-xl bg-gray-50 dark:bg-zinc-800/50 border border-gray-100 dark:border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-zinc-100 transition-all"
+              />
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-gray-500 dark:text-zinc-400">个人主页</label>
+              <input
+                v-model="editForm.website"
+                type="text"
+                class="w-full px-4 py-2.5 rounded-xl bg-gray-50 dark:bg-zinc-800/50 border border-gray-100 dark:border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-zinc-100 transition-all"
+              />
+            </div>
+
+            <div class="md:col-span-2 space-y-2">
+              <label class="text-sm font-medium text-gray-500 dark:text-zinc-400">个人简介</label>
+              <textarea
+                v-model="editForm.bio"
+                rows="3"
+                class="w-full px-4 py-2.5 rounded-xl bg-gray-50 dark:bg-zinc-800/50 border border-gray-100 dark:border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-zinc-100 transition-all resize-none"
+              ></textarea>
+            </div>
           </div>
         </div>
       </div>
@@ -355,8 +404,11 @@ const iconMap = {
                 <component :is="iconMap[social.icon]" :size="20" />
               </div>
 
-              <div class="flex-1">
-                <div v-if="!isEditing" class="text-sm font-bold text-gray-700 dark:text-zinc-300">
+              <div class="flex-1 min-w-0">
+                <div
+                  v-if="!isEditing"
+                  class="text-sm font-bold text-gray-700 dark:text-zinc-300 truncate"
+                >
                   {{ social.platform }}
                 </div>
                 <input
@@ -369,7 +421,8 @@ const iconMap = {
                   v-else
                   :href="social.url"
                   target="_blank"
-                  class="text-xs text-gray-400 dark:text-zinc-500 hover:text-blue-500 transition-colors"
+                  class="text-xs text-gray-400 dark:text-zinc-500 hover:text-blue-500 transition-colors block truncate"
+                  :title="social.url"
                 >
                   {{ social.url }}
                 </a>
@@ -400,6 +453,7 @@ const iconMap = {
           </div>
 
           <div
+            v-if="(isEditing ? editExperiences : experiences).length > 0"
             class="space-y-8 relative before:absolute before:inset-y-0 before:left-3 before:w-0.5 before:bg-gray-100 dark:before:bg-zinc-800"
           >
             <div
@@ -464,6 +518,26 @@ const iconMap = {
               </p>
             </div>
           </div>
+
+          <!-- 空状态 -->
+          <div
+            v-else
+            class="py-12 flex flex-col items-center justify-center border-2 border-dashed border-gray-100 dark:border-zinc-800/50 rounded-2xl"
+          >
+            <div
+              class="w-12 h-12 mb-3 rounded-full bg-gray-50 dark:bg-zinc-800/50 flex items-center justify-center text-gray-300 dark:text-zinc-600"
+            >
+              <Briefcase :size="24" />
+            </div>
+            <p class="text-sm text-gray-400 dark:text-zinc-500">暂无工作经历</p>
+            <button
+              v-if="isEditing"
+              @click="addExperience"
+              class="mt-3 text-xs text-blue-500 hover:underline cursor-pointer"
+            >
+              点击添加
+            </button>
+          </div>
         </section>
 
         <!-- 教育背景 -->
@@ -484,7 +558,7 @@ const iconMap = {
             </button>
           </div>
 
-          <div class="space-y-6">
+          <div v-if="(isEditing ? editEducation : education).length > 0" class="space-y-6">
             <div
               v-for="(edu, index) in isEditing ? editEducation : education"
               :key="index"
@@ -540,6 +614,26 @@ const iconMap = {
                 <Trash2 :size="16" />
               </button>
             </div>
+          </div>
+
+          <!-- 空状态 -->
+          <div
+            v-else
+            class="py-12 flex flex-col items-center justify-center border-2 border-dashed border-gray-100 dark:border-zinc-800/50 rounded-2xl"
+          >
+            <div
+              class="w-12 h-12 mb-3 rounded-full bg-gray-50 dark:bg-zinc-800/50 flex items-center justify-center text-gray-300 dark:text-zinc-600"
+            >
+              <GraduationCap :size="24" />
+            </div>
+            <p class="text-sm text-gray-400 dark:text-zinc-500">暂无教育背景</p>
+            <button
+              v-if="isEditing"
+              @click="addEducation"
+              class="mt-3 text-xs text-blue-500 hover:underline cursor-pointer"
+            >
+              点击添加
+            </button>
           </div>
         </section>
       </div>

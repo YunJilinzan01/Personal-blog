@@ -3,51 +3,33 @@ import { ref, watch } from 'vue'
 
 export const useUserStore = defineStore('user', () => {
   const profile = ref({
-    name: 'YunJilinzan',
-    bio: '探索技术的边界，记录生活的点滴。一名对前端交互和后端架构充满热情的全栈开发工程师。',
-    location: '中国 · 深圳',
-    email: '3231789754@qq.com',
-    website: 'www.yunji.me',
-    avatar: '',
+    name: '您的昵称',
+    bio: '在这里写下您的个人简介，向世界展示您自己。',
+    location: '您的所在地',
+    email: 'yourname@example.com',
+    website: 'www.yourwebsite.com',
+    avatar: '', // 存储 Base64 字符串
   })
 
+  // 默认头像占位图
+  const defaultAvatar = 'https://api.dicebear.com/7.x/avataaars/svg?seed=Felix'
+
+  const getAvatar = () => profile.value.avatar || defaultAvatar
+
   const skills = ref([
-    { name: 'Vue.js', level: 90, color: 'bg-emerald-500' },
-    { name: 'React', level: 85, color: 'bg-blue-500' },
-    { name: 'TypeScript', level: 88, color: 'bg-blue-600' },
-    { name: 'Node.js', level: 82, color: 'bg-green-500' },
-    { name: 'Tailwind CSS', level: 95, color: 'bg-cyan-500' },
-    { name: 'Python', level: 75, color: 'bg-yellow-500' },
+    { name: '技能名称 1', level: 80, color: 'bg-blue-500' },
+    { name: '技能名称 2', level: 70, color: 'bg-emerald-500' },
+    { name: '技能名称 3', level: 90, color: 'bg-purple-500' },
   ])
 
-  const experiences = ref([
-    {
-      company: 'Tech Innovators Co.',
-      role: 'Senior Frontend Developer',
-      period: '2022 - Present',
-      desc: '负责核心业务系统的架构设计与开发，主导了前端性能优化专项，提升页面加载速度 40%。',
-    },
-    {
-      company: 'Creative Solutions Studio',
-      role: 'Full Stack Engineer',
-      period: '2020 - 2022',
-      desc: '主导了多个响应式 Web 应用的从零到一开发，涵盖了电商、社交等多个领域。',
-    },
-  ])
+  const experiences = ref([])
 
-  const education = ref([
-    {
-      school: '某某理工大学',
-      major: '计算机科学与技术',
-      degree: '本科',
-      period: '2016 - 2020',
-    },
-  ])
+  const education = ref([])
 
   const socialLinks = ref([
-    { platform: 'Github', url: '#', icon: 'Github' },
-    { platform: 'Twitter', url: '#', icon: 'Twitter' },
-    { platform: 'Linkedin', url: '#', icon: 'Linkedin' },
+    { platform: 'Github', url: 'https://github.com/yourusername', icon: 'Github' },
+    { platform: 'Twitter', url: 'https://twitter.com/yourusername', icon: 'Twitter' },
+    { platform: 'Linkedin', url: 'https://linkedin.com/in/yourusername', icon: 'Linkedin' },
   ])
 
   // 从 localStorage 初始化
@@ -168,5 +150,6 @@ export const useUserStore = defineStore('user', () => {
     updateExperiences,
     updateEducation,
     updateSocialLinks,
+    getAvatar,
   }
 })
