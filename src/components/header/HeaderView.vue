@@ -219,6 +219,7 @@ const toggleTheme = () => {
         <button
           @click="toggleTheme"
           class="p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-all duration-300 active:scale-90 cursor-pointer"
+          title="切换主题"
         >
           <transition name="scale" mode="out-in">
             <svg

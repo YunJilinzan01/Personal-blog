@@ -38,7 +38,7 @@ const currentYear = new Date().getFullYear()
             </li>
             <li>
               <a
-                href="/articles"
+                href="/archives"
                 class="text-sm text-gray-600 dark:text-zinc-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
                 >文章归档</a
               >

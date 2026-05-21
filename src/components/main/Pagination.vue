@@ -39,7 +39,8 @@ defineEmits(['update:currentPage'])
       class="px-5 py-2 rounded-xl bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-white/20 dark:border-zinc-800/50 shadow-sm text-gray-800 dark:text-zinc-100 font-bold flex items-center gap-1.5 transition-colors duration-300"
     >
       <span class="text-blue-600 dark:text-blue-400">{{ currentPage }}</span>
-      <template v-if="totalPages > 1"> </template>
+      <span class="text-gray-400 dark:text-zinc-600 font-medium">/</span>
+      <span class="text-gray-600 dark:text-zinc-400">{{ totalPages }}</span>
     </div>
 
     <!-- 下一页 -->

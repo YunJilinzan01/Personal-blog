@@ -13,7 +13,6 @@ const archives = computed(() => {
     if (!groups[year]) {
       groups[year] = []
     }
-    // 归档列表显示的日期格式为 MM-DD
     const dateObj = new Date(post.date)
     const displayDate = `${String(dateObj.getMonth() + 1).padStart(2, '0')}-${String(dateObj.getDate()).padStart(2, '0')}`
     groups[year].push({ ...post, displayDate })
@@ -44,7 +43,6 @@ const goToDetail = (id) => {
 
       <div class="relative ml-4 border-l-2 border-gray-100 dark:border-zinc-800 pl-8 space-y-12">
         <div v-for="group in archives" :key="group.year" class="relative">
-          <!-- 年份标记 -->
           <div
             class="absolute -left-[41px] top-0 flex items-center justify-center w-5 h-5 bg-white dark:bg-zinc-900 border-2 border-blue-500 rounded-full z-10"
           >
@@ -80,7 +78,3 @@ const goToDetail = (id) => {
     </section>
   </div>
 </template>
-
-<style scoped>
-/* 可以在这里添加一些动画效果 */
-</style>

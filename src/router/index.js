@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import MainView from '@/components/main/MainView.vue'
-import PostList from '@/components/main/PostList.vue'
-import PostDetail from '@/components/main/PostDetail.vue'
-import AboutView from '@/components/main/AboutView.vue'
-import ArchiveView from '@/components/main/ArchiveView.vue'
-import ProfileView from '@/components/main/ProfileView.vue'
+import MainView from '@/views/Main/MainView.vue'
+import PostList from '@/views/Home/HomeView.vue'
+import PostDetail from '@/views/PostDetail/PostDetailView.vue'
+import AboutView from '@/views/About/AboutView.vue'
+import ArchiveView from '@/views/Archives/ArchiveView.vue'
+import ProfileView from '@/views/Profile/ProfileView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

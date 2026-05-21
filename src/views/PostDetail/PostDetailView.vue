@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import CommentSection from './CommentSection.vue'
+import CommentSection from '@/components/main/CommentSection.vue'
 import { useBlogStore } from '@/stores/blogStore'
 
 const route = useRoute()

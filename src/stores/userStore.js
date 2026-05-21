@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, watch } from 'vue'
-
+import avatar from '@/assets/images/author.jpg'
 export const useUserStore = defineStore('user', () => {
   const profile = ref({
     name: '您的昵称',
@@ -12,7 +12,7 @@ export const useUserStore = defineStore('user', () => {
   })
 
   // 默认头像占位图
-  const defaultAvatar = 'https://api.dicebear.com/7.x/avataaars/svg?seed=Felix'
+  const defaultAvatar = avatar
 
   const getAvatar = () => profile.value.avatar || defaultAvatar
 
@@ -32,6 +32,34 @@ export const useUserStore = defineStore('user', () => {
     { platform: 'Linkedin', url: 'https://linkedin.com/in/yourusername', icon: 'Linkedin' },
   ])
 
+  // 关于我页面的内容
+  const aboutContent = ref({
+    title: '关于我',
+    introduction: '欢迎来到我的博客！我是一名开发者，热衷于探索新技术并分享我的学习历程。',
+    description: '在这个博客中，我将分享：',
+    points: ['技术教程与深度解析', '项目开发经验', '学习笔记与心得', '生活随笔与思考'],
+  })
+
+  const techStack = ref(['Vue.js', 'JavaScript', 'CSS', 'HTML'])
+
+  const isAdminMode = ref(false)
+
+  // 默认数据，用于重置
+  const defaultAboutData = {
+    content: {
+      title: '关于我',
+      introduction: '欢迎来到我的博客！我是一名开发者，热衷于探索新技术并分享我的学习历程。',
+      description: '在这个博客中，我将分享：',
+      points: ['技术教程与深度解析', '项目开发经验', '学习笔记与心得', '生活随笔与思考'],
+    },
+    techStack: ['Vue.js', 'JavaScript', 'CSS', 'HTML'],
+  }
+
+  const resetAboutData = () => {
+    aboutContent.value = JSON.parse(JSON.stringify(defaultAboutData.content))
+    techStack.value = [...defaultAboutData.techStack]
+  }
+
   // 从 localStorage 初始化
   const savedProfile = localStorage.getItem('user_profile')
   if (savedProfile) {
@@ -39,6 +67,24 @@ export const useUserStore = defineStore('user', () => {
       profile.value = { ...profile.value, ...JSON.parse(savedProfile) }
     } catch (e) {
       console.error('Failed to parse user profile from localStorage', e)
+    }
+  }
+
+  const savedAboutContent = localStorage.getItem('user_about_content')
+  if (savedAboutContent) {
+    try {
+      aboutContent.value = JSON.parse(savedAboutContent)
+    } catch (e) {
+      console.error('Failed to parse about content from localStorage', e)
+    }
+  }
+
+  const savedTechStack = localStorage.getItem('user_tech_stack')
+  if (savedTechStack) {
+    try {
+      techStack.value = JSON.parse(savedTechStack)
+    } catch (e) {
+      console.error('Failed to parse tech stack from localStorage', e)
     }
   }
 
@@ -119,6 +165,22 @@ export const useUserStore = defineStore('user', () => {
     { deep: true },
   )
 
+  watch(
+    aboutContent,
+    (newVal) => {
+      localStorage.setItem('user_about_content', JSON.stringify(newVal))
+    },
+    { deep: true },
+  )
+
+  watch(
+    techStack,
+    (newVal) => {
+      localStorage.setItem('user_tech_stack', JSON.stringify(newVal))
+    },
+    { deep: true },
+  )
+
   const updateProfile = (newData) => {
     profile.value = { ...profile.value, ...newData }
   }
@@ -141,15 +203,19 @@ export const useUserStore = defineStore('user', () => {
 
   return {
     profile,
+    getAvatar,
     skills,
     experiences,
     education,
     socialLinks,
+    aboutContent,
+    techStack,
+    isAdminMode,
+    resetAboutData,
     updateProfile,
     updateSkills,
     updateExperiences,
     updateEducation,
     updateSocialLinks,
-    getAvatar,
   }
 })
