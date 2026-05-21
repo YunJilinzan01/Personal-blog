@@ -2,6 +2,32 @@
 
 **项目概览**
 
+#### 项目效果
+
+1.首页
+
+![image-20260522032533448](src/assets/images/md/image-20260522032533448.png) ![image-20260522032607361](src/assets/images/md/image-20260522032607361.png)
+
+2.帖子列表
+
+![image-20260522032629624](src/assets/images/md/image-20260522032629624.png)
+
+3.归档
+
+![image-20260522032729356](src/assets/images/md/image-20260522032729356.png)
+
+4.关于我
+
+![image-20260522032830122](src/assets/images/md/image-20260522032830122.png)
+
+5.个人信息
+
+![image-20260522032813051](src/assets/images/md/image-20260522032813051.png)
+
+6.移动端效果
+
+![image-20260522034300637](src\assets\images\md\image-20260522034300637.png)
+
 这是一个基于 Vue 3、Vite 和 Pinia 的个人博客前端项目模板，提供文章展示、分页、归档、关于与个人资料管理等功能。
 
 **技术栈**
@@ -58,7 +84,7 @@
 **样式与静态资源**
 
 - 全局样式: [src/assets/main.css](src/assets/main.css)
-- 静态资源可放置在 `public/` 或 `src/assets/images/`。
+- 静态资源可放置在 `public/` 或 `src/assets/images/`。如果你把项目截图或文档图片放在 `src/assets/images/md/`，README 中的路径也应使用相对仓库路径，例如 `src/assets/images/md/xxx.png`。
 
 **配置与构建**
 
