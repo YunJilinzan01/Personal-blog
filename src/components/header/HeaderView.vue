@@ -90,13 +90,19 @@ const toggleTheme = () => {
       <nav>
         <ul class="flex gap-2 justify-center items-center">
           <li>
-            <InteractiveHoverButton text="首页" class="px-4 py-2" />
+            <router-link to="/">
+              <InteractiveHoverButton text="首页" class="px-4 py-2" />
+            </router-link>
           </li>
           <li>
-            <InteractiveHoverButton text="文章" class="px-4 py-2" />
+            <router-link to="/archives">
+              <InteractiveHoverButton text="归档" class="px-4 py-2" />
+            </router-link>
           </li>
           <li>
-            <InteractiveHoverButton text="关于我" class="px-4 py-2" />
+            <router-link to="/about">
+              <InteractiveHoverButton text="关于我" class="px-4 py-2" />
+            </router-link>
           </li>
         </ul>
       </nav>

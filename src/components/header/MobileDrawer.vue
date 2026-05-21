@@ -50,20 +50,23 @@ const closeMenu = () => {
 
           <!-- 导航链接 -->
           <nav class="flex flex-col gap-2">
-            <a
-              href="#"
+            <router-link
+              to="/"
+              @click="closeMenu"
               class="px-4 py-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 text-lg font-medium transition-colors"
-              >首页</a
+              >首页</router-link
             >
-            <a
-              href="#"
+            <router-link
+              to="/archives"
+              @click="closeMenu"
               class="px-4 py-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 text-lg font-medium transition-colors"
-              >文章</a
+              >归档</router-link
             >
-            <a
-              href="#"
+            <router-link
+              to="/about"
+              @click="closeMenu"
               class="px-4 py-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 text-lg font-medium transition-colors"
-              >关于我</a
+              >关于我</router-link
             >
           </nav>
         </div>

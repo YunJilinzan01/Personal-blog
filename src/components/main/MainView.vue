@@ -1,5 +1,4 @@
 <script setup>
-import PostList from './PostList.vue'
 import AuthorProfile from '../aside/AuthorProfile.vue'
 import TagCloud from '../aside/TagCloud.vue'
 import TechOrbit from '../aside/TechOrbit.vue'
@@ -25,7 +24,7 @@ const { toggle } = storeToRefs(store)
 
     <!-- 主内容区 -->
     <main class="flex-1 w-full animate-fade-in-up">
-      <PostList />
+      <RouterView />
     </main>
 
     <!-- 右侧栏 - 桌面端根据 toggle 显示，移动端始终显示并堆叠在下方 -->
