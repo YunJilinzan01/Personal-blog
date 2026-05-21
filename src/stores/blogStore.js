@@ -36,7 +36,7 @@ export const useBlogStore = defineStore('blog', () => {
     (newTags) => {
       localStorage.setItem('blog_tags', JSON.stringify(newTags))
     },
-    { deep: true }
+    { deep: true },
   )
 
   watch(
@@ -44,7 +44,7 @@ export const useBlogStore = defineStore('blog', () => {
     (newCats) => {
       localStorage.setItem('blog_categories', JSON.stringify(newCats))
     },
-    { deep: true }
+    { deep: true },
   )
 
   const addTag = (tag) => {
@@ -62,7 +62,7 @@ export const useBlogStore = defineStore('blog', () => {
   }
 
   const addCategory = (name, link = '#') => {
-    if (name && !categories.value.find(c => c.name === name)) {
+    if (name && !categories.value.find((c) => c.name === name)) {
       categories.value.push({ name, link })
     }
   }

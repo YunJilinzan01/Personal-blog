@@ -6,11 +6,20 @@ import Directory from '../aside/Directory.vue'
 import Calendar from '../aside/Calendar.vue'
 import GoalList from '../aside/GoalList.vue'
 import ProjectList from '../aside/ProjectList.vue'
+import PostAdminTools from './PostAdminTools.vue'
 import { toggleStore } from '@/stores/toggleStore'
 import { storeToRefs } from 'pinia'
 
 const store = toggleStore()
 const { toggle } = storeToRefs(store)
+
+const handleAddPost = () => {
+  console.log('新增帖子')
+}
+
+const handleDeletePost = () => {
+  console.log('删除帖子')
+}
 </script>
 <template>
   <div class="flex flex-col lg:flex-row flex-1 justify-center gap-5 w-full">
@@ -24,6 +33,7 @@ const { toggle } = storeToRefs(store)
 
     <!-- 主内容区 -->
     <main class="flex-1 w-full animate-fade-in-up">
+      <PostAdminTools @add="handleAddPost" @delete="handleDeletePost" />
       <RouterView />
     </main>
 
@@ -63,6 +73,8 @@ const { toggle } = storeToRefs(store)
 </template>
 
 <style scoped>
+@reference "../../assets/main.css";
+
 .animate-fade-in-left {
   animation: fade-in-left 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
