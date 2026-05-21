@@ -8,7 +8,7 @@ const projects = ref([
     title: '电商后台管理系统',
     description:
       '基于 Vue 3 + Element Plus 开发的电商后台管理系统，支持商品管理、订单管理、用户管理等功能。',
-    link: '#',
+    link: 'http://www.skybluel.cn/',
     tags: ['Pinia', 'LocalStorage'],
     tagColors: 'bg-orange-100/50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400',
   },
