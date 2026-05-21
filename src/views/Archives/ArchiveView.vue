@@ -32,7 +32,7 @@ const goToDetail = (id) => {
 </script>
 
 <template>
-  <div class="space-y-8">
+  <div class="space-y-8 animate-fade-in-up">
     <section
       class="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md p-8 rounded-2xl shadow-sm border border-white/20 dark:border-zinc-800/50 transition-all duration-300"
     >

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 
 export const useBlogStore = defineStore('blog', () => {
   const tags = ref(['JavaScript', 'Vue.js', 'CSS', '前端开发', '编程'])
@@ -37,6 +37,31 @@ export const useBlogStore = defineStore('blog', () => {
         'https://images.unsplash.com/photo-1618477388954-7852f32655ec?w=800&auto=format&fit=crop&q=60',
     },
   ])
+
+  const searchQuery = ref('')
+
+  const filteredPosts = computed(() => {
+    const query = searchQuery.value.trim().toLowerCase()
+    if (!query) {
+      return posts.value
+    }
+
+    return posts.value.filter((post) => {
+      const title = post.title.toLowerCase()
+      const excerpt = post.excerpt.toLowerCase()
+      const category = (post.category || '').toLowerCase()
+      const content = (post.content || '').toLowerCase()
+      const tags = (post.tags || []).join(' ').toLowerCase()
+
+      return (
+        title.includes(query) ||
+        excerpt.includes(query) ||
+        category.includes(query) ||
+        content.includes(query) ||
+        tags.includes(query)
+      )
+    })
+  })
 
   const isDeleteMode = ref(false)
 
@@ -137,6 +162,8 @@ export const useBlogStore = defineStore('blog', () => {
     tags,
     categories,
     posts,
+    searchQuery,
+    filteredPosts,
     isDeleteMode,
     addTag,
     removeTag,

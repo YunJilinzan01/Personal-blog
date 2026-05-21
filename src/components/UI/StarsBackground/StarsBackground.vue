@@ -1,7 +1,6 @@
 <script setup>
-import { cn } from '@inspira-ui/plugins'
 import { motion, useMotionValue, useSpring } from 'motion-v'
-import { computed, onMounted, ref, watch } from 'vue'
+import { useStarsBackground } from '@/composables/ui/useStarsBackground'
 
 const props = defineProps({
   factor: {
@@ -25,148 +24,69 @@ const props = defineProps({
 // For slot content
 defineSlots()
 
-// 移除参数的类型声明 (count, starColor)
-function generateStars(count, starColor) {
-  const shadows = []
-  for (let i = 0; i < count; i++) {
-    const x = Math.floor(Math.random() * 4000) - 2000
-    const y = Math.floor(Math.random() * 4000) - 2000
-    shadows.push(`${x}px ${y}px ${starColor}`)
-  }
-  return shadows.join(', ')
-}
-
 const offsetX = useMotionValue(1)
 const offsetY = useMotionValue(1)
-
 const springX = useSpring(offsetX, props.transition)
 const springY = useSpring(offsetY, props.transition)
 
-// 移除鼠标事件的对象类型 (e)
-function handleMouseMove(e) {
-  const centerX = window.innerWidth / 2
-  const centerY = window.innerHeight / 2
-  const newOffsetX = -(e.clientX - centerX) * props.factor
-  const newOffsetY = -(e.clientY - centerY) * props.factor
-  offsetX.set(newOffsetX)
-  offsetY.set(newOffsetY)
-}
-
-const boxShadow1 = ref('')
-const boxShadow2 = ref('')
-const boxShadow3 = ref('')
-
-onMounted(() => {
-  boxShadow1.value = generateStars(1000, props.starColor)
-  boxShadow2.value = generateStars(400, props.starColor)
-  boxShadow3.value = generateStars(200, props.starColor)
-})
-
-// Watch for starColor changes
-watch(
-  () => props.starColor,
-  (newColor) => {
-    boxShadow1.value = generateStars(1000, newColor)
-    boxShadow2.value = generateStars(400, newColor)
-    boxShadow3.value = generateStars(200, newColor)
-  },
-)
-
-const starLayer1Transition = computed(() => ({
-  repeat: Infinity,
-  duration: props.speed,
-  ease: 'linear',
-}))
-
-const starLayer2Transition = computed(() => ({
-  repeat: Infinity,
-  duration: props.speed * 2,
-  ease: 'linear',
-}))
-
-const starLayer3Transition = computed(() => ({
-  repeat: Infinity,
-  duration: props.speed * 3,
-  ease: 'linear',
-}))
+const {
+  boxShadow1,
+  boxShadow2,
+  boxShadow3,
+  handleMouseMove,
+  starLayer1Transition,
+  starLayer2Transition,
+  starLayer3Transition,
+} = useStarsBackground(props)
 </script>
 
 <template>
-  <div
-    class="relative size-full overflow-hidden bg-[radial-gradient(ellipse_at_bottom,#262626_0%,#000_100%)]"
-    @mousemove="handleMouseMove"
-  >
+  <div class="relative size-full overflow-hidden bg-[radial-gradient(ellipse_at_bottom,#262626_0%,#000_100%)]"
+    @mousemove="handleMouseMove">
     <motion.div :style="{ x: springX, y: springY }">
       <!-- Star Layer 1 -->
-      <motion.div
-        class="absolute top-0 left-0 h-[2000px] w-full"
-        :animate="{ y: [0, -2000] }"
-        :transition="starLayer1Transition"
-      >
-        <div
-          class="absolute rounded-full bg-transparent"
-          :style="{
-            width: '1px',
-            height: '1px',
-            boxShadow: boxShadow1,
-          }"
-        />
-        <div
-          class="absolute top-[2000px] rounded-full bg-transparent"
-          :style="{
-            width: '1px',
-            height: '1px',
-            boxShadow: boxShadow1,
-          }"
-        />
+      <motion.div class="absolute top-0 left-0 h-[2000px] w-full" :animate="{ y: [0, -2000] }"
+        :transition="starLayer1Transition">
+        <div class="absolute rounded-full bg-transparent" :style="{
+          width: '1px',
+          height: '1px',
+          boxShadow: boxShadow1,
+        }" />
+        <div class="absolute top-[2000px] rounded-full bg-transparent" :style="{
+          width: '1px',
+          height: '1px',
+          boxShadow: boxShadow1,
+        }" />
       </motion.div>
 
       <!-- Star Layer 2 -->
-      <motion.div
-        class="absolute top-0 left-0 h-[2000px] w-full"
-        :animate="{ y: [0, -2000] }"
-        :transition="starLayer2Transition"
-      >
-        <div
-          class="absolute rounded-full bg-transparent"
-          :style="{
-            width: '2px',
-            height: '2px',
-            boxShadow: boxShadow2,
-          }"
-        />
-        <div
-          class="absolute top-[2000px] rounded-full bg-transparent"
-          :style="{
-            width: '2px',
-            height: '2px',
-            boxShadow: boxShadow2,
-          }"
-        />
+      <motion.div class="absolute top-0 left-0 h-[2000px] w-full" :animate="{ y: [0, -2000] }"
+        :transition="starLayer2Transition">
+        <div class="absolute rounded-full bg-transparent" :style="{
+          width: '2px',
+          height: '2px',
+          boxShadow: boxShadow2,
+        }" />
+        <div class="absolute top-[2000px] rounded-full bg-transparent" :style="{
+          width: '2px',
+          height: '2px',
+          boxShadow: boxShadow2,
+        }" />
       </motion.div>
 
       <!-- Star Layer 3 -->
-      <motion.div
-        class="absolute top-0 left-0 h-[2000px] w-full"
-        :animate="{ y: [0, -2000] }"
-        :transition="starLayer3Transition"
-      >
-        <div
-          class="absolute rounded-full bg-transparent"
-          :style="{
-            width: '3px',
-            height: '3px',
-            boxShadow: boxShadow3,
-          }"
-        />
-        <div
-          class="absolute top-[2000px] rounded-full bg-transparent"
-          :style="{
-            width: '3px',
-            height: '3px',
-            boxShadow: boxShadow3,
-          }"
-        />
+      <motion.div class="absolute top-0 left-0 h-[2000px] w-full" :animate="{ y: [0, -2000] }"
+        :transition="starLayer3Transition">
+        <div class="absolute rounded-full bg-transparent" :style="{
+          width: '3px',
+          height: '3px',
+          boxShadow: boxShadow3,
+        }" />
+        <div class="absolute top-[2000px] rounded-full bg-transparent" :style="{
+          width: '3px',
+          height: '3px',
+          boxShadow: boxShadow3,
+        }" />
       </motion.div>
     </motion.div>
 

@@ -3,13 +3,15 @@ import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import InteractiveHoverButton from '../UI/InteractiveHoverButton/InteractiveHoverButton.vue'
 import MobileDrawer from './MobileDrawer.vue'
 import { toggleStore } from '@/stores/toggleStore'
+import { useBlogStore } from '@/stores/blogStore'
 import { storeToRefs } from 'pinia'
 
 const store = toggleStore()
 const { toggle, isDark, isMobileMenuOpen } = storeToRefs(store)
 const { toggleTheme: storeToggleTheme, toggleMobileMenu } = store
 
-const searchQuery = ref('')
+const blogStore = useBlogStore()
+const { searchQuery } = storeToRefs(blogStore)
 const isSearchHover = ref(false)
 const isHeaderTop = ref(true)
 const isDesktop = ref(window.innerWidth >= 1024)
@@ -65,28 +67,21 @@ const toggleTheme = () => {
 </script>
 
 <template>
-  <header
-    v-bind="$attrs"
-    :class="[
-      'fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ease-in-out',
-      'w-[calc(100%-2rem)] max-w-342 h-17 mt-2.5 px-4 rounded-2xl flex justify-between items-center',
-      'backdrop-blur-md animate-fade-in-down',
-      isHeaderTop ? 'text-white' : 'text-gray-800 dark:text-white shadow-xl',
-    ]"
-    :style="headerStyle"
-  >
+  <header v-bind="$attrs" :class="[
+    'fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ease-in-out',
+    'w-[calc(100%-2rem)] max-w-342 h-17 mt-2.5 px-4 rounded-2xl flex justify-between items-center',
+    'backdrop-blur-md animate-fade-in-down',
+    isHeaderTop ? 'text-white' : 'text-gray-800 dark:text-white shadow-xl',
+  ]" :style="headerStyle">
     <div class="shrink-0">
       <h1 class="text-lg md:text-xl font-bold cursor-pointer whitespace-nowrap">个人博客</h1>
     </div>
 
-    <div
-      class="flex-1 transition-all duration-500 ease-in-out hidden lg:block"
-      :class="[
-        hideNav
-          ? 'opacity-0 invisible pointer-events-none translate-y-2'
-          : 'opacity-100 visible translate-y-0',
-      ]"
-    >
+    <div class="flex-1 transition-all duration-500 ease-in-out hidden lg:block" :class="[
+      hideNav
+        ? 'opacity-0 invisible pointer-events-none translate-y-2'
+        : 'opacity-100 visible translate-y-0',
+    ]">
       <nav>
         <ul class="flex gap-2 justify-center items-center">
           <li>
@@ -116,76 +111,38 @@ const toggleTheme = () => {
     <div class="flex items-center gap-2 md:gap-3">
       <!-- 搜索栏 -->
       <div
-        class="flex items-center cursor-pointer bg-black/5 dark:bg-white/10 rounded-xl px-3 py-1.5 transition-all duration-500 ease-in-out"
-        :class="[isExpanded ? 'w-40 sm:w-64' : 'w-10']"
-        @mouseenter="isSearchHover = true"
-        @mouseleave="isSearchHover = false"
-      >
+        class="flex items-center cursor-pointer bg-black/5 dark:bg-white/10 rounded-xl px-3 py-1.5 overflow-hidden transition-all duration-500 ease-in-out"
+        :style="{ width: isExpanded ? '16rem' : '2.5rem' }" @mouseenter="isSearchHover = true"
+        @mouseleave="isSearchHover = false">
         <div class="shrink-0 flex items-center justify-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="text-current"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-current">
             <circle cx="11" cy="11" r="8"></circle>
             <path d="m21 21-4.3-4.3"></path>
           </svg>
         </div>
-        <input
-          type="text"
-          placeholder="Search"
-          v-model="searchQuery"
-          class="bg-transparent text-sm outline-none transition-all duration-500 ease-in-out placeholder:text-gray-400"
-          :class="[isExpanded ? 'w-full ml-2 md:ml-3 opacity-100' : 'w-0 opacity-0']"
-        />
+        <input type="text" placeholder="Search" v-model="searchQuery" @focus="isSearchHover = true"
+          @blur="isSearchHover = false"
+          class="bg-transparent min-w-0 text-sm outline-none transition-all duration-500 ease-in-out placeholder:text-gray-400"
+          :class="[isExpanded ? 'w-full ml-2 md:ml-3 opacity-100' : 'w-0 opacity-0']" />
       </div>
 
       <div class="flex items-center gap-1 md:gap-3 text-current">
         <!-- 侧边栏切换按钮 - 仅桌面端 -->
-        <button
-          v-if="isDesktop"
+        <button v-if="isDesktop"
           class="p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-all duration-300 active:scale-90 cursor-pointer"
-          @click="toggle = !toggle"
-        >
+          @click="toggle = !toggle">
           <transition name="scale" mode="out-in">
-            <svg
-              v-if="!toggle"
-              :key="'menu'"
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
+            <svg v-if="!toggle" :key="'menu'" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
               <line x1="3" y1="12" x2="21" y2="12"></line>
               <line x1="3" y1="6" x2="21" y2="6"></line>
               <line x1="3" y1="18" x2="21" y2="18"></line>
             </svg>
 
-            <svg
-              v-else
-              :key="'grid'"
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
+            <svg v-else :key="'grid'" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="3" width="7" height="7"></rect>
               <rect x="14" y="3" width="7" height="7"></rect>
               <rect x="14" y="14" width="7" height="7"></rect>
@@ -197,60 +154,27 @@ const toggleTheme = () => {
         <!-- 移动端菜单按钮 -->
         <button
           class="lg:hidden p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-all duration-300 active:scale-90 cursor-pointer"
-          @click="toggleMobileMenu"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
+          @click="toggleMobileMenu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="1"></circle>
             <circle cx="19" cy="12" r="1"></circle>
             <circle cx="5" cy="12" r="1"></circle>
           </svg>
         </button>
 
-        <button
-          @click="toggleTheme"
+        <button @click="toggleTheme"
           class="p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-all duration-300 active:scale-90 cursor-pointer"
-          title="切换主题"
-        >
+          title="切换主题">
           <transition name="scale" mode="out-in">
-            <svg
-              v-if="isDark"
-              :key="'moon'"
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
+            <svg v-if="isDark" :key="'moon'" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
               <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
             </svg>
 
-            <svg
-              v-else
-              :key="'sun'"
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
+            <svg v-else :key="'sun'" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="4"></circle>
               <path d="M12 2v2"></path>
               <path d="M12 20v2"></path>
