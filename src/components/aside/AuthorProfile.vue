@@ -4,6 +4,11 @@ import ViteIcon from '@/components/icons/ViteIcon.vue'
 import JSIcon from '@/components/icons/JSIcon.vue'
 import TWCIcon from '@/components/icons/TWCIcon.vue'
 import GitHubIcon from '@/components/icons/GitHubIcon.vue'
+import { useUserStore } from '@/stores/userStore'
+import { storeToRefs } from 'pinia'
+
+const userStore = useUserStore()
+const { profile } = storeToRefs(userStore)
 </script>
 
 <template>
@@ -14,13 +19,13 @@ import GitHubIcon from '@/components/icons/GitHubIcon.vue'
       <img src="../../assets/images/author.jpg" alt="Author" class="w-full h-full object-cover" />
     </div>
     <h4 class="text-2xl font-bold my-4 text-center text-gray-800 dark:text-zinc-100">
-      YunJilinzan
+      {{ profile.name }}
     </h4>
     <span class="block text-gray-600 dark:text-zinc-400 text-center py-1.5"
-      >Email: 3231789754@qq.com
+      >Email: {{ profile.email }}
     </span>
     <p class="text-gray-600 dark:text-zinc-400 text-center">
-      你好！我是一个热爱编程的开发者，喜欢分享我的技术经验和生活点滴。
+      {{ profile.bio }}
     </p>
     <div class="mt-4 flex justify-center gap-2 text-gray-600 dark:text-zinc-400">
       <div

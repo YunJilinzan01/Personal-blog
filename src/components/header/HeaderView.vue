@@ -104,6 +104,11 @@ const toggleTheme = () => {
               <InteractiveHoverButton text="关于我" class="px-4 py-2" />
             </router-link>
           </li>
+          <li>
+            <router-link to="/profile">
+              <InteractiveHoverButton text="个人信息" class="px-4 py-2" />
+            </router-link>
+          </li>
         </ul>
       </nav>
     </div>

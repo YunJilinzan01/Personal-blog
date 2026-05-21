@@ -1,16 +1,25 @@
 <script setup>
-defineProps({
+import { useRouter } from 'vue-router'
+
+const props = defineProps({
   post: {
     type: Object,
     required: true,
   },
 })
+
+const router = useRouter()
+
+const goToDetail = () => {
+  router.push({ name: 'post-detail', params: { id: props.post.id } })
+}
 </script>
 
 <template>
   <article
+    @click="goToDetail"
     :class="[
-      'relative p-6 rounded-2xl bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-white/8 dark:border-zinc-800/50 shadow-lg transition-all duration-300 overflow-hidden',
+      'relative p-6 rounded-2xl bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-white/8 dark:border-zinc-800/50 shadow-lg transition-all duration-300 overflow-hidden cursor-pointer group/card',
       post.cover ? 'grid grid-cols-1 md:grid-cols-3 gap-6' : 'flex items-center justify-between',
     ]"
   >
@@ -43,7 +52,7 @@ defineProps({
           </svg>
 
           <h2
-            class="text-2xl font-bold text-gray-800 dark:text-zinc-100 hover:text-[#37a8ec] transition-colors duration-300 cursor-pointer w-fit flex items-center gap-1.5 group/title"
+            class="text-2xl font-bold text-gray-800 dark:text-zinc-100 group-hover/card:text-[#37a8ec] transition-colors duration-300 w-fit flex items-center gap-1.5 group/title"
           >
             {{ post.title }}
 
@@ -64,7 +73,7 @@ defineProps({
             <!-- 悬浮箭头 -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="w-5 h-5 text-[#37a8ec] opacity-0 -translate-x-2 group-hover/title:opacity-100 group-hover/title:translate-x-0 transition-all duration-300"
+              class="w-5 h-5 text-[#37a8ec] opacity-0 -translate-x-2 group-hover/card:opacity-100 group-hover/card:translate-x-0 transition-all duration-300"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -146,6 +155,7 @@ defineProps({
         <span
           v-for="tag in post.tags"
           :key="tag"
+          @click.stop
           class="text-xs px-2.5 py-1 rounded-md bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-800/30 hover:bg-blue-100 dark:hover:bg-blue-800/40 transition-colors cursor-pointer"
           ># {{ tag }}</span
         >
