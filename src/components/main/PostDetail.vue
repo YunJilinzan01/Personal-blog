@@ -2,76 +2,16 @@
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import CommentSection from './CommentSection.vue'
+import { useBlogStore } from '@/stores/blogStore'
 
 const route = useRoute()
 const router = useRouter()
+const blogStore = useBlogStore()
 const post = ref(null)
-
-// 模拟文章数据获取
-const fetchPost = (id) => {
-  const posts = [
-    {
-      id: 1,
-      title: 'Markdown Tutorial',
-      content: `
-        <h2>Introduction</h2>
-        <p>Markdown is a lightweight markup language with plain-text-formatting syntax. Its design allows it to be converted to many output formats, but the original tool, which it was named after, only supported HTML.</p>
-        <h2>Features</h2>
-        <ul>
-          <li>Easy to read</li>
-          <li>Easy to write</li>
-          <li>Support for various formats</li>
-        </ul>
-        <blockquote>
-          Markdown is intended to be as easy-to-read and easy-to-write as is feasible.
-        </blockquote>
-      `,
-      date: '2025-01-20',
-      category: 'Examples',
-      tags: ['Markdown', 'Blogging'],
-      readingTime: '1426 words',
-      cover: null,
-    },
-    {
-      id: 2,
-      title: 'Encrypted Post',
-      content: '<p>This post is encrypted and requires a password to view.</p>',
-      date: '2024-01-15',
-      category: 'Technology',
-      tags: ['Test', 'Encryption'],
-      isEncrypted: true,
-      readingTime: '469 words',
-      cover: null,
-    },
-    {
-      id: 3,
-      title: 'Markdown Extended Features',
-      content:
-        '<p>Mizuki supports many extended Markdown features like tables, task lists, and more.</p>',
-      date: '2024-05-01',
-      category: 'Examples',
-      tags: ['Demo', 'Example', 'Markdown', 'Mizuki'],
-      readingTime: '136 words',
-      cover: null,
-    },
-    {
-      id: 4,
-      title: 'Simple Guides for Mizuki',
-      content: '<p>Getting started with Mizuki is easy. Just follow these simple steps...</p>',
-      date: '2024-04-01',
-      category: 'Guides',
-      tags: ['Mizuki', 'Blogging', 'Customization'],
-      readingTime: '182 words',
-      cover:
-        'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=60',
-    },
-  ]
-  return posts.find((p) => p.id === parseInt(id))
-}
 
 onMounted(() => {
   const id = route.params.id
-  post.value = fetchPost(id)
+  post.value = blogStore.posts.find((p) => p.id === parseInt(id))
   if (!post.value) {
     // 如果找不到文章，可以跳转回首页或者显示 404
     console.error('Post not found')

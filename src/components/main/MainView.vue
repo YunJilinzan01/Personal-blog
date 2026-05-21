@@ -7,18 +7,28 @@ import Calendar from '../aside/Calendar.vue'
 import GoalList from '../aside/GoalList.vue'
 import ProjectList from '../aside/ProjectList.vue'
 import PostAdminTools from './PostAdminTools.vue'
+import PostModal from './PostModal.vue'
 import { toggleStore } from '@/stores/toggleStore'
+import { useBlogStore } from '@/stores/blogStore'
 import { storeToRefs } from 'pinia'
+import { ref } from 'vue'
 
 const store = toggleStore()
+const blogStore = useBlogStore()
 const { toggle } = storeToRefs(store)
 
+const showAddModal = ref(false)
+
 const handleAddPost = () => {
-  console.log('新增帖子')
+  showAddModal.value = true
+}
+
+const submitPost = (postData) => {
+  blogStore.addPost(postData)
 }
 
 const handleDeletePost = () => {
-  console.log('删除帖子')
+  blogStore.isDeleteMode = !blogStore.isDeleteMode
 }
 </script>
 <template>
@@ -35,6 +45,9 @@ const handleDeletePost = () => {
     <main class="flex-1 w-full animate-fade-in-up">
       <PostAdminTools @add="handleAddPost" @delete="handleDeletePost" />
       <RouterView />
+
+      <!-- 新增帖子弹窗 -->
+      <PostModal :show="showAddModal" @close="showAddModal = false" @submit="submitPost" />
     </main>
 
     <!-- 右侧栏 - 桌面端根据 toggle 显示，移动端始终显示并堆叠在下方 -->

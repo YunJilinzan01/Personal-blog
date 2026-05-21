@@ -1,5 +1,10 @@
 <script setup>
 import { useRouter } from 'vue-router'
+import { useBlogStore } from '@/stores/blogStore'
+import { storeToRefs } from 'pinia'
+import { Trash2 } from 'lucide-vue-next'
+import { ref } from 'vue'
+import DeleteConfirmModal from './DeleteConfirmModal.vue'
 
 const props = defineProps({
   post: {
@@ -9,9 +14,24 @@ const props = defineProps({
 })
 
 const router = useRouter()
+const blogStore = useBlogStore()
+const { isDeleteMode } = storeToRefs(blogStore)
+
+const showDeleteModal = ref(false)
 
 const goToDetail = () => {
+  if (isDeleteMode.value) return
   router.push({ name: 'post-detail', params: { id: props.post.id } })
+}
+
+const handleDelete = (e) => {
+  e.stopPropagation()
+  showDeleteModal.value = true
+}
+
+const confirmDelete = () => {
+  blogStore.deletePost(props.post.id)
+  showDeleteModal.value = false
 }
 </script>
 
@@ -23,6 +43,38 @@ const goToDetail = () => {
       post.cover ? 'grid grid-cols-1 md:grid-cols-3 gap-6' : 'flex items-center justify-between',
     ]"
   >
+    <!-- 删除按钮叠加层 -->
+    <Transition
+      enter-active-class="transition-all duration-300 ease-out"
+      enter-from-class="opacity-0 scale-90 translate-x-4"
+      enter-to-class="opacity-100 scale-100 translate-x-0"
+      leave-active-class="transition-all duration-200 ease-in"
+      leave-from-class="opacity-100 scale-100 translate-x-0"
+      leave-to-class="opacity-0 scale-90 translate-x-4"
+    >
+      <div
+        v-if="isDeleteMode"
+        class="absolute inset-0 z-20 flex items-center justify-center bg-black/5 backdrop-blur-[1px] transition-all duration-300"
+        @click.stop
+      >
+        <button
+          @click="handleDelete"
+          class="p-4 bg-rose-500 hover:bg-rose-600 text-white rounded-2xl shadow-xl shadow-rose-500/30 transition-all active:scale-90 group/del flex items-center gap-2"
+        >
+          <Trash2 class="w-6 h-6 group-hover/del:animate-bounce" />
+          <span class="font-bold">删除此帖</span>
+        </button>
+      </div>
+    </Transition>
+
+    <!-- 删除确认模态框 -->
+    <DeleteConfirmModal
+      :show="showDeleteModal"
+      :title="post.title"
+      @close="showDeleteModal = false"
+      @confirm="confirmDelete"
+    />
+
     <!-- 左侧/主体内容区 -->
     <div
       :class="[

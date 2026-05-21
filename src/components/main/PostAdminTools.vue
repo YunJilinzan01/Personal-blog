@@ -1,8 +1,13 @@
 <script setup>
 import { ref } from 'vue'
 import { Plus, Trash2, Settings2 } from 'lucide-vue-next'
+import { useBlogStore } from '@/stores/blogStore'
+import { storeToRefs } from 'pinia'
 
 const emit = defineEmits(['add', 'delete'])
+
+const blogStore = useBlogStore()
+const { isDeleteMode } = storeToRefs(blogStore)
 
 const showAdminTools = ref(false)
 
@@ -49,10 +54,15 @@ const onDelete = () => {
           </button>
           <button
             @click="onDelete"
-            class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-rose-600 dark:text-rose-400 bg-rose-50/50 dark:bg-rose-900/20 hover:bg-rose-100 dark:hover:bg-rose-800/30 border border-rose-100/50 dark:border-rose-800/30 rounded-lg transition-all duration-200 active:scale-95"
+            class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-200 active:scale-95"
+            :class="[
+              isDeleteMode
+                ? 'text-white bg-rose-500 hover:bg-rose-600 border-rose-500 shadow-lg shadow-rose-500/20'
+                : 'text-rose-600 dark:text-rose-400 bg-rose-50/50 dark:bg-rose-900/20 hover:bg-rose-100 dark:hover:bg-rose-800/30 border border-rose-100/50 dark:border-rose-800/30',
+            ]"
           >
-            <Trash2 class="w-4 h-4" />
-            <span>删除帖子</span>
+            <Trash2 class="w-4 h-4" :class="{ 'animate-pulse': isDeleteMode }" />
+            <span>{{ isDeleteMode ? '退出删除' : '删除帖子' }}</span>
           </button>
         </div>
       </Transition>

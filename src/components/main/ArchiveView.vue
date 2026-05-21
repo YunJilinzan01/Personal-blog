@@ -1,25 +1,31 @@
 <script setup>
-import { ref } from 'vue'
+import { computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useBlogStore } from '@/stores/blogStore'
 
 const router = useRouter()
+const blogStore = useBlogStore()
 
-const archives = ref(
-  [
-    {
-      year: '2024',
-      posts: [
-        { id: 3, title: 'Markdown Extended Features', date: '05-01' },
-        { id: 4, title: 'Simple Guides for Mizuki', date: '04-01' },
-        { id: 2, title: 'Encrypted Post', date: '01-15' },
-      ],
-    },
-    {
-      year: '2025',
-      posts: [{ id: 1, title: 'Markdown Tutorial', date: '01-20' }],
-    },
-  ].sort((a, b) => b.year - a.year),
-)
+const archives = computed(() => {
+  const groups = {}
+  blogStore.posts.forEach((post) => {
+    const year = new Date(post.date).getFullYear().toString()
+    if (!groups[year]) {
+      groups[year] = []
+    }
+    // 归档列表显示的日期格式为 MM-DD
+    const dateObj = new Date(post.date)
+    const displayDate = `${String(dateObj.getMonth() + 1).padStart(2, '0')}-${String(dateObj.getDate()).padStart(2, '0')}`
+    groups[year].push({ ...post, displayDate })
+  })
+
+  return Object.keys(groups)
+    .sort((a, b) => b - a)
+    .map((year) => ({
+      year,
+      posts: groups[year].sort((a, b) => new Date(b.date) - new Date(a.date)),
+    }))
+})
 
 const goToDetail = (id) => {
   router.push({ name: 'post-detail', params: { id } })
@@ -64,7 +70,7 @@ const goToDetail = (id) => {
               <div
                 class="flex items-center gap-4 text-gray-600 dark:text-zinc-400 group-hover:text-[#37a8ec] transition-colors duration-300"
               >
-                <span class="text-sm font-medium tabular-nums w-12">{{ post.date }}</span>
+                <span class="text-sm font-medium tabular-nums w-12">{{ post.displayDate }}</span>
                 <h4 class="text-lg font-medium">{{ post.title }}</h4>
               </div>
             </div>
