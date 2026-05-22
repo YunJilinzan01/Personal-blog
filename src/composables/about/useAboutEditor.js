@@ -30,12 +30,10 @@ export function useAboutEditor(userStore, aboutContent, techStack, socialLinks, 
   }
 
   const resetToDefault = () => {
-    if (confirm('确定要重置所有内容到初始状态吗？')) {
-      userStore.resetAboutData()
-      if (isEditing.value) {
-        editedContent.value = JSON.parse(JSON.stringify(aboutContent.value))
-        editedTechStack.value = [...techStack.value]
-      }
+    userStore.resetAboutData()
+    if (isEditing.value) {
+      editedContent.value = JSON.parse(JSON.stringify(aboutContent.value))
+      editedTechStack.value = [...techStack.value]
     }
   }
 

@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue'
 import { useUserStore } from '@/stores/userStore'
 import { storeToRefs } from 'pinia'
 import { useAboutEditor } from '@/composables/about/useAboutEditor'
@@ -43,6 +44,15 @@ const {
   onDrop,
 } = useAboutEditor(userStore, aboutContent, techStack, socialLinks, profile)
 
+const showResetConfirm = ref(false)
+const confirmReset = () => {
+  resetToDefault()
+  showResetConfirm.value = false
+}
+const cancelReset = () => {
+  showResetConfirm.value = false
+}
+
 const iconMap = {
   Github,
   Twitter,
@@ -63,7 +73,7 @@ const iconMap = {
           <span>编辑</span>
         </button>
         <div v-else class="flex gap-2">
-          <button @click="resetToDefault"
+          <button @click="showResetConfirm = true"
             class="p-2 text-amber-600 dark:text-amber-400 bg-amber-50/50 dark:bg-amber-900/20 rounded-xl border border-amber-100/50 dark:border-amber-800/30 hover:bg-amber-100 dark:hover:bg-amber-800/40 transition-all active:scale-95"
             title="恢复初始设置">
             <RotateCcw class="w-4 h-4" />
@@ -183,7 +193,6 @@ const iconMap = {
         </div>
       </div>
 
-      <!-- Contact Info -->
       <div
         class="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md p-6 rounded-2xl shadow-sm border border-white/20 dark:border-zinc-800/50">
         <h3 class="text-xl font-bold mb-6 text-gray-800 dark:text-zinc-100 flex items-center gap-2">
@@ -192,7 +201,6 @@ const iconMap = {
         </h3>
 
         <div v-if="isEditing" class="space-y-4">
-          <!-- Email Edit -->
           <div class="space-y-1">
             <label class="text-[10px] text-gray-400 uppercase tracking-widest px-2">Email</label>
             <div
@@ -203,7 +211,6 @@ const iconMap = {
             </div>
           </div>
 
-          <!-- Social Links Edit -->
           <div class="space-y-2">
             <label class="text-[10px] text-gray-400 uppercase tracking-widest px-2">社交链接</label>
             <div v-for="(link, index) in editedSocialLinks" :key="index"
@@ -253,7 +260,7 @@ const iconMap = {
             <div class="flex flex-col">
               <span class="text-xs text-gray-400 uppercase tracking-wider">{{
                 link.platform
-                }}</span>
+              }}</span>
               <a :href="link.url" target="_blank"
                 class="text-sm font-medium hover:text-blue-500 transition-colors truncate max-w-[200px]">
                 {{ link.url.replace(/^https?:\/\//, '') }}
@@ -263,6 +270,42 @@ const iconMap = {
         </ul>
       </div>
     </section>
+
+    <Teleport to="body">
+      <Transition enter-active-class="transition duration-300 ease-out" enter-from-class="opacity-0"
+        enter-to-class="opacity-100" leave-active-class="transition duration-200 ease-in" leave-from-class="opacity-100"
+        leave-to-class="opacity-0">
+        <div v-if="showResetConfirm"
+          class="fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm"
+          @click.self="cancelReset">
+          <Transition enter-active-class="transition duration-300 ease-out" enter-from-class="opacity-0 scale-95"
+            enter-to-class="opacity-100 scale-100" leave-active-class="transition duration-200 ease-in"
+            leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-95">
+            <div
+              class="w-full max-w-sm bg-white dark:bg-zinc-900 rounded-3xl shadow-2xl border border-white/20 dark:border-zinc-800/50 p-6 text-center">
+              <div
+                class="mx-auto mb-4 w-14 h-14 rounded-full bg-amber-100 dark:bg-amber-900/20 text-amber-600 dark:text-amber-300 flex items-center justify-center">
+                <RotateCcw class="w-6 h-6" />
+              </div>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-zinc-100 mb-2">重置为默认内容</h3>
+              <p class="text-sm text-gray-500 dark:text-zinc-400 mb-6 leading-relaxed">
+                确定要将编辑内容恢复为初始设置吗？此操作将覆盖当前编辑内容。
+              </p>
+              <div class="flex gap-3">
+                <button @click="cancelReset"
+                  class="flex-1 py-3 text-sm font-medium text-gray-600 dark:text-zinc-300 bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700 rounded-xl transition-all">
+                  取消
+                </button>
+                <button @click="confirmReset"
+                  class="flex-1 py-3 text-sm font-medium text-white bg-amber-500 hover:bg-amber-600 rounded-xl shadow-lg shadow-amber-500/20 transition-all active:scale-95">
+                  确定重置
+                </button>
+              </div>
+            </div>
+          </Transition>
+        </div>
+      </Transition>
+    </Teleport>
   </div>
 </template>
 
